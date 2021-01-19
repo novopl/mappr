@@ -15,7 +15,8 @@ def field_iterator(test=types.TestFn):
 
 
 def iter_fields(any_cls: Type):
-    if field_iter := _find_field_iter(any_cls):
+    field_iter = _find_field_iter(any_cls)
+    if field_iter:
         yield from field_iter.make_iterator(any_cls)
 
 
