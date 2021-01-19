@@ -75,7 +75,6 @@ jobs:
       - run:
           name: Upload to pypi
           command: |
-            poetry config http-basic.mypypi "$PYPI_USER" "$PYPI_PASS"
             poetry publish -n --build --username="$PYPI_USER" --password="$PYPI_PASS"
 
       - run:
