@@ -24,6 +24,7 @@ Easily convert between arbitrary types.
 
 Goals
 =====
+
 .. readme_about_start
 
 **mappr**'s goal is to make it as easy as possible to define custom converters
@@ -42,15 +43,15 @@ cases (off by default).
 Links
 =====
 
-- `Documentation`_
-    - `Contributing`_
-    - `Reference`_
-- `Source Code`_
+* `Documentation`_
+
+    * `Contributing`_
+    * `Reference`_
+
 
 .. _Documentation: https://novopl.github.io/mappr
 .. _Contributing: https://novopl.github.io/mappr/pages/contributing.html
 .. _Reference: https://novopl.github.io/mappr/pages/reference.html
-.. _Source Code: https://github.com/novopl/mappr
 
 
 Installation
