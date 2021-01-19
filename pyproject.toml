@@ -3,9 +3,9 @@ name = "mappr"
 version = "0.1.5"
 description = ""
 authors = ["Mateusz Klos <novopl@gmail.com>"]
-repository = "http://github.com/novopl/mappr"
-homepage = "http://novopl.github.com/mappr"
-documentation = "http://novopl.github.com/mappr"
+repository = "https://github.com/novopl/mappr"
+homepage = "https://novopl.github.io/mappr"
+documentation = "https://novopl.github.io/mappr"
 license = "Proprietary"
 packages = [
     { include = "mappr", from = "src" },

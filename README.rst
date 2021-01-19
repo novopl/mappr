@@ -17,16 +17,18 @@ Links
 =====
 
 - `Documentation`_
-    - `Installation`_
     - `Contributing`_
+    - `Reference`_
+- `Source Code`_
 
 .. _Documentation: https://novopl.github.io/mappr
-.. _Installation: https://novopl.github.io/mappr/docs/html/pages/installation.html
-.. _Contributing: https://novopl.github.io/mappr/docs/html/pages/contrib.html
+.. _Contributing: https://novopl.github.io/mappr/pages/contributing.html
+.. _Reference: https://novopl.github.io/mappr/pages/reference.html
+.. _Source Code: https://github.com/novopl/mappr
+
 
 Installation
 ============
-
 
 .. readme_installation_start
 
@@ -39,7 +41,6 @@ or if you're using poetry.
 .. code-block:: shell
 
     $ poetry add mappr
-
 
 .. readme_installation_end
 
