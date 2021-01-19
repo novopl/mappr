@@ -1,10 +1,10 @@
-###############################################
-mappr - Easily convert between arbitrary types.
-###############################################
-
 .. include:: ../../README.rst
     :start-after: readme_badges_start
     :end-before: readme_badges_end
+
+###############################################
+mappr - Easily convert between arbitrary types.
+###############################################
 
 
 .. include:: ../../README.rst

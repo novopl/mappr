@@ -1,18 +1,21 @@
+.. readme_badges_start
+
+|circleci| |nbsp| |codecov| |nbsp| |mypy| |nbsp| |license|
+
+
+.. |circleci| image:: https://circleci.com/gh/novopl/mappr.svg?style=shield
+                :target: https://circleci.com/gh/novopl/mappr
+.. |codecov| image:: https://codecov.io/gh/novopl/mappr/branch/master/graph/badge.svg?token=SLX4NL21H9
+                :target: https://codecov.io/gh/novopl/mappr
+.. |mypy| image:: https://img.shields.io/badge/type_checked-mypy-informational.svg
+.. |license| image:: https://img.shields.io/badge/License-Apache2-blue.svg
+.. |nbsp| unicode:: 0xA0
+
+.. readme_badges_end
+
 #####
 mappr
 #####
-
-.. readme_badges_start
-.. image:: https://codecov.io/gh/novopl/mappr/branch/master/graph/badge.svg?token=SLX4NL21H9
-    :target: https://codecov.io/gh/novopl/mappr
-
-.. image:: https://img.shields.io/badge/type_checked-mypy-informational.svg
-
-.. image:: https://img.shields.io/badge/License-Apache2-blue.svg
-
-.. image:: https://circleci.com/gh/novopl/mappr.svg?style=shield
-    :target: https://circleci.com/gh/novopl/mappr
-.. readme_badges_end
 
 
 Easily convert between arbitrary types.
