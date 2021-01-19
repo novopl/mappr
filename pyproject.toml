@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mappr"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Mateusz Klos <novopl@gmail.com>"]
 repository = "http://github.com/novopl/mappr"
@@ -92,7 +92,10 @@ python_paths = ["src"]
 build_dir = ".build"
 
 [tool.peltak.version]
-files = ["src/mappr/__init__.py"]
+files = [
+    "pyproject.toml",
+    "src/mappr/__init__.py"
+]
 
 [tool.peltak.clean]
 patterns = ["*.mypy_cache", "*.pytest_cache", "*.build"]

@@ -76,7 +76,8 @@ def _get_converter(src_type: Type, dst_type: Type[T], strict: bool) -> TypeConve
     In **strict** mode, it will not create an ad-hoc default converter and will
     require the converter to have been registered earlier.
     """
-    if converter := _find_converter(src_type, dst_type):
+    converter = _find_converter(src_type, dst_type)
+    if converter:
         return converter
     elif not strict:
         # If not strict, create an ad-hoc converter for the types. This will try

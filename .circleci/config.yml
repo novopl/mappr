@@ -3,18 +3,11 @@ version: 2
 jobs:
   build:
     docker:
-      - image: python:3.7
+      - image: novopl/python37
     steps:
       - checkout
       - restore_cache:
           key: deps-{{ checksum ".circleci/config.yml" }}-{{ checksum "poetry.lock" }}
-
-      - run:
-          name: Install OS dependencies
-          command: |
-            pip install --no-cache poetry
-            apt-get update -y
-            apt-get install -y zip
 
       - run:
           name: Install project dependencies
@@ -67,10 +60,9 @@ jobs:
       - store_artifacts:
           path: .build/mappr-docs.zip
 
-
   release:
     docker:
-      - image: python:3.9
+      - image: novopl/python37
     steps:
       - checkout
       - restore_cache:
@@ -94,7 +86,7 @@ jobs:
 
   docs:
     docker:
-      - image: python:3.9
+      - image: novopl/python37
     steps:
       - checkout
       - restore_cache:
@@ -137,7 +129,7 @@ workflows:
             - build
           filters:
             branches:
-              only: devmaster
+              only: master
       - docs:
           requires:
             - build
