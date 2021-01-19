@@ -15,10 +15,10 @@ mappr - Easily convert between arbitrary types.
 Links
 =====
 
+- `Source Code`_
 - `Documentation`_
     - `Contributing`_
     - `Reference`_
-- `Source Code`_
 
 .. _Documentation: https://novopl.github.io/mappr
 .. _Contributing: https://novopl.github.io/mappr/pages/contributing.html
