@@ -55,7 +55,7 @@
   <script async src='https://www.google-analytics.com/analytics.js'></script>
   
   
-    <title>mappr - Easily convert between arbitrary types. &#8212; mappr 0.1.8 documentation</title>
+    <title>mappr - Easily convert between arbitrary types. &#8212; mappr 0.1.9 documentation</title>
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/material.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -88,7 +88,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex navheader">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="#" title="mappr 0.1.8 documentation"
+        <a href="#" title="mappr 0.1.9 documentation"
            class="md-header-nav__button md-logo">
           
             <i class="md-icon">&#x267E</i>
@@ -174,7 +174,7 @@
   <nav class="md-tabs" data-md-component="tabs">
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
-          <li class="md-tabs__item"><a href="#" class="md-tabs__link">mappr 0.1.8 documentation</a></li>
+          <li class="md-tabs__item"><a href="#" class="md-tabs__link">mappr 0.1.9 documentation</a></li>
       </ul>
     </div>
   </nav>
@@ -186,13 +186,13 @@
               <div class="md-sidebar__inner">
                 <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="#" title="mappr 0.1.8 documentation" class="md-nav__button md-logo">
+    <a href="#" title="mappr 0.1.9 documentation" class="md-nav__button md-logo">
       
         <i class="md-icon">&#x267E</i>
       
     </a>
     <a href="#"
-       title="mappr 0.1.8 documentation">mappr</a>
+       title="mappr 0.1.9 documentation">mappr</a>
   </label>
     <div class="md-nav__source">
       <a href="https://github.com/project/project/" title="Go to repository" class="md-source" data-md-source="github">
@@ -288,11 +288,10 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  
+  <p><a class="reference external" href="https://circleci.com/gh/novopl/mappr"><img alt="circleci" src="https://circleci.com/gh/novopl/mappr.svg?style=shield"/></a>   <a class="reference external" href="https://codecov.io/gh/novopl/mappr"><img alt="codecov" src="https://codecov.io/gh/novopl/mappr/branch/master/graph/badge.svg?token=SLX4NL21H9"/></a>   <img alt="mypy" src="https://img.shields.io/badge/type_checked-mypy-informational.svg"/>   <img alt="license" src="https://img.shields.io/badge/License-Apache2-blue.svg"/>   <img alt="py_ver" src="https://img.shields.io/badge/python-3.7+-blue.svg"/></p>
+
 <h1 id="index--page-root">mappr - Easily convert between arbitrary types.<a class="headerlink" href="#index--page-root" title="Permalink to this headline">¶</a></h1>
-<a class="reference external image-reference" href="https://codecov.io/gh/novopl/mappr"><img alt="https://codecov.io/gh/novopl/mappr/branch/master/graph/badge.svg?token=SLX4NL21H9" src="https://codecov.io/gh/novopl/mappr/branch/master/graph/badge.svg?token=SLX4NL21H9"/></a>
-<img alt="https://img.shields.io/badge/type_checked-mypy-informational.svg" src="https://img.shields.io/badge/type_checked-mypy-informational.svg"/><img alt="https://img.shields.io/badge/License-Apache2-blue.svg" src="https://img.shields.io/badge/License-Apache2-blue.svg"/><a class="reference external image-reference" href="https://circleci.com/gh/novopl/mappr"><img alt="https://circleci.com/gh/novopl/mappr.svg?style=shield" src="https://circleci.com/gh/novopl/mappr.svg?style=shield"/></a>
-<p><strong>mappr</strong>’s goal is to make it as easy as possible to define custome converters
+<p><strong>mappr</strong>’s goal is to make it as easy as possible to define custom converters
 between arbitrary types in python. It does not concern itself with validation
 or coercion. It only provides a simple way to define a mapping between two
 types + some extra functionality to automatically generate converters for simple
@@ -323,72 +322,68 @@ cases (off by default).</p>
 
 
 <h2 id="example">Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
-<p>Assume we have a following types in our app. They represent pretty much the same
-thing, but different views of it.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">asdict</span><span class="p">,</span> <span class="n">dataclass</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Any</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 
 <span class="kn">import</span> <span class="nn">mappr</span>
 
 <span class="c1"># A few sample models to demonstrate mappr.</span>
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">Person</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
-    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">surname</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">email</span><span class="p">:</span> <span class="nb">str</span>
-    <span class="n">nickname</span><span class="p">:</span> <span class="nb">str</span>
-
-<span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">User</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">User</span><span class="p">:</span>
     <span class="n">username</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">first_name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">last_name</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">email</span><span class="p">:</span> <span class="nb">str</span>
 
+
 <span class="nd">@dataclass</span>
-<span class="k">class</span> <span class="nc">UserPublic</span><span class="p">(</span><span class="n">Base</span><span class="p">):</span>
+<span class="k">class</span> <span class="nc">Person</span><span class="p">:</span>
+    <span class="n">nick</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">name</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">email</span><span class="p">:</span> <span class="nb">str</span>
+
+
+<span class="nd">@dataclass</span>
+<span class="k">class</span> <span class="nc">UserPublic</span><span class="p">:</span>
     <span class="n">username</span><span class="p">:</span> <span class="nb">str</span>
     <span class="n">first_name</span><span class="p">:</span> <span class="nb">str</span>
-</pre></div>
-</div>
-<p>We can register a mapper from <code class="docutils literal notranslate"><span class="pre">User</span></code> to <code class="docutils literal notranslate"><span class="pre">Person</span></code>. Fields not specified in
-mapping will be copied directly. The source type needs the have attributes
-that match the name, otherwise an exception is raised.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">mappr</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">Person</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
-    <span class="n">nickname</span><span class="o">=</span><span class="k">lambda</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">obj</span><span class="o">.</span><span class="n">nickname</span><span class="p">,</span>
-    <span class="n">name</span><span class="o">=</span><span class="k">lambda</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">obj</span><span class="o">.</span><span class="n">first_name</span><span class="p">,</span>
-    <span class="n">surname</span><span class="o">=</span><span class="k">lambda</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">obj</span><span class="o">.</span><span class="n">last_name</span><span class="p">,</span>
+
+
+<span class="c1"># We can register a mapper from ``User`` to ``Person``. Fields not specified in</span>
+<span class="c1"># mapping will be copied directly. The source type needs the have attributes</span>
+<span class="c1"># that match the name, otherwise an exception is raised.</span>
+<span class="n">mappr</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">Person</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+    <span class="n">nick</span><span class="o">=</span><span class="k">lambda</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n">obj</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="k">lambda</span> <span class="n">obj</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">obj</span><span class="o">.</span><span class="n">first_name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">obj</span><span class="o">.</span><span class="n">last_name</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
 <span class="p">))</span>
-</pre></div>
-</div>
-<p>We can now create a an instance of <code class="docutils literal notranslate"><span class="pre">User</span></code> so we can test our converter.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span>
+
+<span class="c1"># We can now create a an instance of ``User`` so we can test our converter.</span>
+<span class="n">user</span> <span class="o">=</span> <span class="n">User</span><span class="p">(</span>
     <span class="n">username</span><span class="o">=</span><span class="s1">'john.doe'</span><span class="p">,</span>
     <span class="n">first_name</span><span class="o">=</span><span class="s1">'John'</span><span class="p">,</span>
     <span class="n">last_name</span><span class="o">=</span><span class="s1">'Doe'</span><span class="p">,</span>
     <span class="n">email</span><span class="o">=</span><span class="s1">'john.doe@example.com'</span><span class="p">,</span>
 <span class="p">)</span>
-</pre></div>
-</div>
-<p>This will use the converter registered above. To allow conversion in the
-reverse direction, you need to register the appropriate converter first.
-Each converter works only one way.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">mappr</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">Person</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span> <span class="o">==</span> <span class="n">Person</span><span class="p">(</span>
-    <span class="n">name</span><span class="o">=</span><span class="s1">'John'</span><span class="p">,</span>
-    <span class="n">surname</span><span class="o">=</span><span class="s1">'Doe'</span><span class="p">,</span>
+
+<span class="c1"># This will use the converter registered above. To allow conversion in the</span>
+<span class="c1"># reverse direction, you need to register the appropriate converter first.</span>
+<span class="c1"># Each converter works only one way.</span>
+<span class="k">assert</span> <span class="n">mappr</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">Person</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span> <span class="o">==</span> <span class="n">Person</span><span class="p">(</span>
+    <span class="n">nick</span><span class="o">=</span><span class="s1">'john.doe'</span><span class="p">,</span>
+    <span class="n">name</span><span class="o">=</span><span class="s1">'John Doe'</span><span class="p">,</span>
     <span class="n">email</span><span class="o">=</span><span class="s1">'john.doe@example.com'</span><span class="p">,</span>
-    <span class="n">nickname</span><span class="o">=</span><span class="s1">'john.doe'</span><span class="p">,</span>
 <span class="p">)</span>
-</pre></div>
-</div>
-<p>For simple conversions, where the target type attributes are a subset of
-source’s attributes, we can just pass <code class="docutils literal notranslate"><span class="pre">strict=False</span></code> to let mappr create
-an ad-hoc converter. This will only work if the attribute names are
-exactly the same.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">assert</span> <span class="n">mappr</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">UserPublic</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">==</span> <span class="n">UserPublic</span><span class="p">(</span>
-    <span class="n">username</span><span class="o">=</span><span class="s1">'John'</span><span class="p">,</span>
-    <span class="n">first_name</span><span class="o">=</span><span class="s1">'john.doe'</span><span class="p">,</span>
+
+<span class="c1"># For simple conversions, where the target type attributes are a subset of</span>
+<span class="c1"># source's attributes, we can just pass ``strict=False`` to let mappr create</span>
+<span class="c1"># an ad-hoc converter. This will only work if the attribute names are</span>
+<span class="c1"># exactly the same.</span>
+<span class="k">assert</span> <span class="n">mappr</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">UserPublic</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">==</span> <span class="n">UserPublic</span><span class="p">(</span>
+    <span class="n">username</span><span class="o">=</span><span class="s1">'john.doe'</span><span class="p">,</span>
+    <span class="n">first_name</span><span class="o">=</span><span class="s1">'John'</span><span class="p">,</span>
 <span class="p">)</span>
+
+
+
 </pre></div>
 </div>
 
