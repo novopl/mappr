@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mappr"
-version = "0.1.7"
+version = "0.1.8"
 description = ""
 authors = ["Mateusz Klos <novopl@gmail.com>"]
 repository = "https://github.com/novopl/mappr"
@@ -158,3 +158,14 @@ command_file = "ops/scripts/docs.sh.j2"
     name = [ "--run-doctests" ]
     about = "Also run all doctests."
     is_flag = true
+
+
+[tool.peltak.scripts.pr-release]
+root_cli = true
+about = "Create PR for the current release branch"
+command = """
+gh pr create \
+    --repo novopl/mappr \
+    --title "Release: v$(peltak version --porcelain)" \
+    --body "$(peltak changelog)"
+"""

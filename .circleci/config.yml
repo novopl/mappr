@@ -84,7 +84,7 @@ jobs:
       - run:
           name: Create release tag
           command: |
-            poetry run peltak release tag -m "$(potery run peltak changelog)"
+            poetry run peltak release tag -m "$(poetry run peltak changelog)"
             git push origin v$(poetry run peltak version --porcelain)
 
   gh-pages:
