@@ -1,11 +1,23 @@
+#####
+mappr
+#####
+
+.. readme_badges_start
 .. image:: https://codecov.io/gh/novopl/mappr/branch/master/graph/badge.svg?token=SLX4NL21H9
     :target: https://codecov.io/gh/novopl/mappr
 
+.. image:: https://img.shields.io/badge/type_checked-mypy-informational.svg
+.. image:: https://img.shields.io/badge/License-Apache2-blue.svg
+.. image:: https://circleci.com/gh/novopl/mappr.svg?style=shield
+    :target: https://circleci.com/gh/novopl/mappr
+.. readme_badges_end
 
-###############################################
-mappr - Easily convert between arbitrary types.
-###############################################
 
+Easily convert between arbitrary types.
+
+
+Goals
+=====
 .. readme_about_start
 
 **mappr**'s goal is to make it as easy as possible to define custome converters
