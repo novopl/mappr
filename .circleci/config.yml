@@ -129,7 +129,7 @@ workflows:
             - build
           filters:
             branches:
-              only: devmaster
+              only: master
       - docs:
           requires:
             - build
