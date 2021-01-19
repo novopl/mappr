@@ -1,7 +1,6 @@
 """ A conversion system to ease converting between different types.
 
 This will be especially useful types <-> models conversions.
-
 """
 from .conversion import convert, register, TypeConverter        # noqa: F401
 from .exc import ConverterAlreadyExists, Error, NoConverter     # noqa: F401
