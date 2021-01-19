@@ -11,7 +11,7 @@ TestFn = Callable[[Type], bool]
 @dataclasses.dataclass
 class FieldIter:
     test: TestFn
-    iter: Callable[[Any], FieldIterator]
+    iter: Callable[[Type], FieldIterator]
 
     def can_handle(self, any_cls: Type) -> bool:
         # We need to use getattr as using self.test will call test as a method

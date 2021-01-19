@@ -1,5 +1,5 @@
 import dataclasses
-from typing import Any, Callable, List, Optional, Type
+from typing import Any, Callable, cast, List, Optional, Type
 
 from . import types
 
@@ -27,11 +27,26 @@ def _find_field_iter(any_cls: Type) -> Optional[types.FieldIter]:
 
 
 @field_iterator(test=lambda cls: dataclasses.is_dataclass(cls))
-def _dataclass_iter_fields(model_cls: Any) -> types.FieldIterator:
+def _dataclass_iter_fields(model_cls: Type) -> types.FieldIterator:
     for field in dataclasses.fields(model_cls):
         yield field.name
 
 
 @field_iterator(test=lambda cls: hasattr(cls, '__table__'))
-def _sa_model_iter_fields(model_cls: Any) -> types.FieldIterator:
+def _sa_model_iter_fields(model_cls: Type) -> types.FieldIterator:
     yield from model_cls.__table__.columns.keys()
+
+
+try:
+    # Optional pydantic support.
+    # Does not require pydantic as it's not a dependency, but if installed it
+    # will support it out of the box.
+    import pydantic
+
+    @field_iterator(test=lambda cls: issubclass(cls, pydantic.BaseModel))
+    def _pydantic_iter_fields(model_cls: Type) -> types.FieldIterator:
+        pydantic_model = cast(pydantic.BaseModel, model_cls)
+        yield from pydantic_model.__fields__.keys()
+
+except ImportError:
+    pass
