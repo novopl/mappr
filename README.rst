@@ -7,7 +7,9 @@ mappr
     :target: https://codecov.io/gh/novopl/mappr
 
 .. image:: https://img.shields.io/badge/type_checked-mypy-informational.svg
+
 .. image:: https://img.shields.io/badge/License-Apache2-blue.svg
+
 .. image:: https://circleci.com/gh/novopl/mappr.svg?style=shield
     :target: https://circleci.com/gh/novopl/mappr
 .. readme_badges_end
