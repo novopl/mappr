@@ -33,6 +33,11 @@ Installation
 .. code-block:: shell
 
     $ pip install mappr
+
+or if you're using poetry.
+
+.. code-block:: shell
+
     $ poetry add mappr
 
 

@@ -9,16 +9,16 @@ set -e
 
 {% if files %}
   {{ 'mypy' | header }}
-  time mypy {{ files | wrap_paths }}
+  mypy {{ files | wrap_paths }}
 
   {{ 'pycodestyle' | header }}
-  time pycodestyle --config=ops/pycodestyle.ini {{ files | wrap_paths }};
+  pycodestyle --config=ops/pycodestyle.ini {{ files | wrap_paths }};
 
   {{ 'flake8' | header }}
-  time flake8 --config=ops/flake8.ini {{ files | wrap_paths }}
+  flake8 --config=ops/flake8.ini {{ files | wrap_paths }}
 
   {{ 'pylint' | header }}
-  time pylint {{ files | wrap_paths }}
+  pylint {{ files | wrap_paths }}
 
   {{ 'done' | header }}
 {% else %}
