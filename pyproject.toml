@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mappr"
-version = "0.1.0"
+version = "0.1.1"
 description = ""
 authors = ["Mateusz Klos <novopl@gmail.com>"]
 repository = "http://github.com/novopl/mappr"
