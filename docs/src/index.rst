@@ -37,9 +37,8 @@ Installation
 Example
 =======
 
-.. include:: ../../README.rst
-    :start-after: readme_example_start
-    :end-before: readme_example_end
+.. literalinclude:: /examples/simple.py
+    :language: python
 
 
 More Documentation
