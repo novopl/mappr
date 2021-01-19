@@ -31,6 +31,7 @@ sphinx-material = "^0.0.32"
 flake8 = "^3.8.4"
 Sphinx = "^3.4.3"
 sphinx-autodoc-typehints = "^1.11.1"
+codecov = "^2.1.11"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
@@ -116,6 +117,11 @@ command_file = "ops/scripts/test.sh.j2"
   name = ["--no-sugar"]
   is_flag = true
   about = "Disable pytest-sugar. Might be useful for CI runs."
+
+  [[tool.peltak.scripts.test.options]]
+  name = ["--cov-xml"]
+  is_flag = true
+  about = "Generate junit XML coverage report. Useful for 3rd party integrations"
 
 [tool.peltak.scripts.check]
 root_cli = true

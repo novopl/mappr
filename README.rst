@@ -1,3 +1,7 @@
+.. image:: https://codecov.io/gh/novopl/mappr/branch/master/graph/badge.svg?token=SLX4NL21H9
+    :target: https://codecov.io/gh/novopl/mappr
+
+
 ###############################################
 mappr - Easily convert between arbitrary types.
 ###############################################
