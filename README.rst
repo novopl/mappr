@@ -24,6 +24,7 @@ Easily convert between arbitrary types.
 
 Goals
 =====
+
 .. readme_about_start
 
 **mappr**'s goal is to make it as easy as possible to define custom converters
