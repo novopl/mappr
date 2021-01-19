@@ -21,6 +21,7 @@ set -e
     --cov=src/mappr \
     --cov-report=term:skip-covered \
     --cov-report=html:{{ cov_html_path }} \
+    {{ '--cov-report=xml' if opts.cov_xml else '' }} \
     {{ ctx.verbose | count_flag('v') }} \
     {{ '-p no:sugar' if opts.no_sugar else '' }} \
     tests
