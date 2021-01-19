@@ -11,7 +11,7 @@ set -e
     --doctest-modules \
     --doctest-report ndiff \
     {{ ctx.verbose | count_flag('v') }} \
-    {{ '\n-p no:sugar' if opts.no_sugar else '' }} \
+    {{ '-p no:sugar' if opts.no_sugar else '' }} \
     src/mappr docs/src
 {% endif %}
 
