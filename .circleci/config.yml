@@ -87,6 +87,19 @@ jobs:
             poetry run peltak release tag -m "$(poetry run peltak changelog)"
             git push origin v$(poetry run peltak version --porcelain)
 
+      - run:
+          name: Create GitHub release
+          command: |
+            export RELEASE_VERSION=$(peltak version --porcelain)
+            gh release create \
+              --repo "novopl/mappr" \
+              --title "v$RELEASE_VERSION" \
+              --notes "$(peltak changelog)" \
+              "v$RELEASE_VERSION" \
+              dist/mappr-$RELEASE_VERSION-py3-none-any.whl \
+              dist/mappr-$RELEASE_VERSION.tar.gz
+
+
   gh-pages:
     docker:
       - image: novopl/python37
