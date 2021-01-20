@@ -4,9 +4,6 @@ jobs:
   build:
     docker:
       - image: novopl/python37
-    environment:
-      REVISION: << pipeline.git.revision >>
-      BASE_REV: << pipeline.git.base_revision >>
     steps:
       - checkout
       - restore_cache:
@@ -26,9 +23,6 @@ jobs:
             echo '== whoami ================================================'
             whoami
             echo '== poetry install ========================================'
-            echo "revision: $REVISION"
-            echo "base_revision: $BASE_REVISION"
-            echo '=========================================================='
             poetry config virtualenvs.in-project true
             poetry show -v
             poetry install --no-ansi
@@ -88,24 +82,29 @@ jobs:
             poetry publish -n --build --username="$PYPI_USER" --password="$PYPI_PASS"
 
       - run:
+          name: Generate release notes
+          command: |
+            poetry run peltak changelog > ./RELEASE_NOTES
+            poetry run peltak version --porcelain > ./RELEASE_VERSION
+
+      - run:
           name: Create release tag
           command: |
-            poetry run peltak changelog > ./__changelog.txt
-            poetry run peltak release tag -m "$(poetry run peltak changelog)"
-            git push origin v$(poetry run peltak version --porcelain)
+
+            poetry run peltak release tag -m "$(cat ./RELEASE_NOTES)"
+            git push origin v$(cat ./RELEASE_VERSION)
 
       - run:
           name: Create GitHub release
           command: |
             cat ./__changelog.txt
-#            export RELEASED_VERSION=$(poetry run peltak version --porcelain)
-#            gh release create \
-#              --repo "novopl/mappr" \
-#              --title "v$RELEASED_VERSION" \
-#              --notes "$(poetry run peltak changelog)" \
-#              "v$RELEASE_VERSION" \
-#              dist/mappr-$RELEASED_VERSION-py3-none-any.whl \
-#              dist/mappr-$RELEASED_VERSION.tar.gz
+            gh release create \
+              --repo "novopl/mappr" \
+              --title "v$(cat ./RELEASE_VERSION)" \
+              --notes "$(cat ./RELEASE_NOTES)" \
+              "v$(cat ./RELEASE_VERSION)" \
+              dist/mappr-$(cat ./RELEASE_VERSION)-py3-none-any.whl \
+              dist/mappr-$(cat ./RELEASE_VERSION).tar.gz
 
 
   gh-pages:
