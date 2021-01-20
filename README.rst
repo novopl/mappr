@@ -87,6 +87,7 @@ thing, but different views of it.
     from dataclasses import dataclass
     import mappr
 
+
     @dataclass
     class User:
         username: str
@@ -94,16 +95,34 @@ thing, but different views of it.
         last_name: str
         email: str
 
-    @dataclass
+
     class Person:
-        nick: str
-        name: str
-        email: str
+        def __init__(self, nick, name, email):
+            self.nick = nick
+            self.name = name
+            self.email = email
 
 
+    # Since we're not using any base class supported out of the box by mappr
+    # we need to define a field_iterator for our Person class. mappr
+    # comes bundled with ones for dataclasses, pydantic (ptional) and
+    # SQLAlchemy (optional). field_iterators are very easy to implement so more
+    # will follow. Of course you can also use field iterators defined by 3rd
+    # party packages. Just needs to be imported prior to converting any objects.
+    @mappr.field_iterator(test=lambda target_cls: isinstance(target_cls, Person))
+    def iter_person(model_cls: Type) -> mappr.FieldIterator:
+        yield from ['nick', 'name', 'email']
+
+    # register User -> Person converter ('email' matches by name so can be skipped)
     mappr.register(User, Person, mapping=dict(
-        nickname=lambda obj, name: obj.nick,
+        nick=lambda obj, name: obj.username,
         name=lambda obj, name: f"{obj.first_name} {obj.last_name}",
+    ))
+    # register Person -> User converter
+    mappr.register(User, Person, mapping=dict(
+        username=lambda obj, name: obj.nick,
+        first_name=lambda obj, name: obj.name and obj.name.split()[0],
+        last_name=lambda obj, name: obj.name and obj.name.split()[-1],
     ))
 
     user = User(
@@ -113,10 +132,14 @@ thing, but different views of it.
         email='john.doe@example.com',
     )
 
-    assert mappr.convert(Person, user) == Person(
+    person = mappr.convert(Person, user)
+    assert person == Person(
         name='John Doe',
         email='john.doe@example.com',
         nick='john.doe',
     )
+
+    user2 = mappr.Convert(User, person)
+    assert user2 == user
 
 .. readme_example_end
