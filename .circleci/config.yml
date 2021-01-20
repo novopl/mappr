@@ -97,7 +97,6 @@ jobs:
       - run:
           name: Create GitHub release
           command: |
-            cat ./__changelog.txt
             gh release create \
               --repo "novopl/mappr" \
               --title "v$(cat ./RELEASE_VERSION)" \
