@@ -90,11 +90,11 @@ jobs:
       - run:
           name: Create GitHub release
           command: |
-            export RELEASE_VERSION=$(peltak version --porcelain)
+            export RELEASE_VERSION=$(poetry run peltak version --porcelain)
             gh release create \
               --repo "novopl/mappr" \
               --title "v$RELEASE_VERSION" \
-              --notes "$(peltak changelog)" \
+              --notes "$(poetry run peltak changelog)" \
               "v$RELEASE_VERSION" \
               dist/mappr-$RELEASE_VERSION-py3-none-any.whl \
               dist/mappr-$RELEASE_VERSION.tar.gz
