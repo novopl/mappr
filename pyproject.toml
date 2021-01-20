@@ -19,7 +19,7 @@ python = "^3.7"
 [tool.poetry.dev-dependencies]
 coverage = "~=5.3"
 mypy = ">=0.790"
-peltak = "~=0.27.0"
+peltak = "~=0.27.1"
 psutil = "~=5.7.3"
 pycodestyle = "~=2.6.0"
 pylint = "~=2.6.0"
@@ -91,6 +91,26 @@ commands = [
 ]
 python_paths = ["src"]
 build_dir = ".build"
+
+[tool.peltak.changelog]
+tag_format = '{tag}:'
+
+    [[tool.peltak.changelog.tags]]
+    tag = 'feature'
+    header = 'Features'
+
+    [[tool.peltak.changelog.tags]]
+    tag = 'fix'
+    header = 'Fixes'
+
+    [[tool.peltak.changelog.tags]]
+    tag = 'change'
+    header = 'Changes'
+
+    [[tool.peltak.changelog.tags]]
+    tag = 'dev'
+    header = 'Dev tasks'
+
 
 [tool.peltak.version]
 files = [
