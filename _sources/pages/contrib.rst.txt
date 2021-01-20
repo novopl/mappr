@@ -2,26 +2,20 @@
 Contributing
 ############
 
+
 Setup up the project for development
 ====================================
 
 .. code-block:: shell
 
-    $ git clone git@github.com:novopl/peltak.git
-    $ cd peltak
-    $ virtualenv env
-    $ source ./env/bin/activate
-    $ pip install -r requirements.txt -r ops/devrequirements.txt
-    $ peltak git add-hooks
-
-.. note::
-    The CircleCI builds can be found
-    `here <https://circleci.com/gh/novopl/peltak>`_
+    $ git clone git@github.com:novopl/mappr.git
+    $ cd mappr
+    $ poetry install
+    $ poetry shell
 
 
 Running tests
 .............
-
 
 .. code-block:: shell
 

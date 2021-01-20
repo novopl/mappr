@@ -55,7 +55,7 @@
   <script async src='https://www.google-analytics.com/analytics.js'></script>
   
   
-    <title>Contributing &#8212; mappr 0.1.17 documentation</title>
+    <title>Contributing &#8212; mappr 0.1.18 documentation</title>
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="../_static/material.css" type="text/css" />
     <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
@@ -89,7 +89,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex navheader">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../index.html" title="mappr 0.1.17 documentation"
+        <a href="../index.html" title="mappr 0.1.18 documentation"
            class="md-header-nav__button md-logo">
           
             <i class="md-icon">&#x267E</i>
@@ -175,7 +175,7 @@
   <nav class="md-tabs" data-md-component="tabs">
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
-          <li class="md-tabs__item"><a href="../index.html" class="md-tabs__link">mappr 0.1.17 documentation</a></li>
+          <li class="md-tabs__item"><a href="../index.html" class="md-tabs__link">mappr 0.1.18 documentation</a></li>
       </ul>
     </div>
   </nav>
@@ -187,13 +187,13 @@
               <div class="md-sidebar__inner">
                 <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="../index.html" title="mappr 0.1.17 documentation" class="md-nav__button md-logo">
+    <a href="../index.html" title="mappr 0.1.18 documentation" class="md-nav__button md-logo">
       
         <i class="md-icon">&#x267E</i>
       
     </a>
     <a href="../index.html"
-       title="mappr 0.1.17 documentation">mappr</a>
+       title="mappr 0.1.18 documentation">mappr</a>
   </label>
     <div class="md-nav__source">
       <a href="https://github.com/project/project/" title="Go to repository" class="md-source" data-md-source="github">
@@ -322,18 +322,11 @@
 <h1 id="pages-contrib--page-root">Contributing<a class="headerlink" href="#pages-contrib--page-root" title="Permalink to this headline">¶</a></h1>
 
 <h2 id="setup-up-the-project-for-development">Setup up the project for development<a class="headerlink" href="#setup-up-the-project-for-development" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ git clone git@github.com:novopl/peltak.git
-$ <span class="nb">cd</span> peltak
-$ virtualenv env
-$ <span class="nb">source</span> ./env/bin/activate
-$ pip install -r requirements.txt -r ops/devrequirements.txt
-$ peltak git add-hooks
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ git clone git@github.com:novopl/mappr.git
+$ <span class="nb">cd</span> mappr
+$ poetry install
+$ poetry shell
 </pre></div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>The CircleCI builds can be found
-<a class="reference external" href="https://circleci.com/gh/novopl/peltak">here</a></p>
 </div>
 
 <h3 id="running-tests">Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h3>
