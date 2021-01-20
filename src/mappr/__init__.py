@@ -8,4 +8,4 @@ from .iterators import field_iterator, iter_fields              # noqa: F401
 from .mappers import map_directly, set_const, use_default       # noqa: F401
 from .types import FieldIterator, MappingFn, ConverterFn        # noqa: F401
 
-__version__ = '0.1.14'
+__version__ = '0.1.15'
