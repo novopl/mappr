@@ -65,12 +65,12 @@ html_theme_options = {
     'google_analytics_account': 'UA-187740680-1',
     # Specify a base_url used to generate sitemap.xml. If not
     # specified, then no sitemap will be built.
-    'base_url': 'https://project.github.io/project',
+    'base_url': 'https://novopl.github.io/mappr',
     # Set the color and the accent color
     'color_primary': 'light-green',
     'color_accent': 'amber',
     # Set the repo location to get a badge with stats
-    'repo_url': 'https://github.com/project/project/',
+    'repo_url': 'https://github.com/novopl/mappr',
     'repo_name': 'mappr',
     'logo_icon': '&#x267E',
     # Visible levels of the global TOC; -1 means unlimited
