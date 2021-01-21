@@ -1,3 +1,5 @@
+import dataclasses
+from contextvars import ContextVar
 from typing import Any, Dict, List, Optional, Type, TypeVar
 
 from . import exc, iterators, mappers, types
@@ -6,17 +8,11 @@ from . import exc, iterators, mappers, types
 T = TypeVar('T')
 
 
+@dataclasses.dataclass
 class TypeConverter:
-    def __init__(
-        self,
-        src_type: Type,
-        dst_type: Type,
-        *,
-        mapping: Optional[types.FieldMapping] = None
-    ):
-        self.src_type = src_type
-        self.dst_type = dst_type
-        self.mapping = mapping or {}
+    src_type: Type
+    dst_type: Type
+    mapping: types.FieldMapping = dataclasses.field(default_factory=dict)
 
     def convert(self, src_obj: Any) -> Any:
         values = {}
@@ -30,8 +26,8 @@ class TypeConverter:
         return self.dst_type(**values)
 
 
-TypeConverterList: List[TypeConverter]
-g_converters: List[TypeConverter] = []
+TypeConverterList = List[TypeConverter]
+g_converters: ContextVar[TypeConverterList] = ContextVar('g_converters', default=[])
 
 
 def convert(dst_type: Type[T], src_obj, strict: bool = True) -> T:
@@ -71,13 +67,15 @@ def register(
 
     """
     existing = _find_converter(src_type, dst_type)
+    converters = g_converters.get()
+
     if existing:
         if strict:
             raise exc.ConverterAlreadyExists(src_type, dst_type)
         else:
-            g_converters.remove(existing)
+            converters.remove(existing)
 
-    g_converters.append(TypeConverter(
+    converters.append(TypeConverter(
         src_type=src_type,
         dst_type=dst_type,
         mapping=mapping or {},
@@ -121,7 +119,8 @@ def _get_converter(src_type: Type, dst_type: Type[T], strict: bool) -> TypeConve
 
 
 def _find_converter(src_type, dst_type) -> Optional[TypeConverter]:
+    converters = g_converters.get()
     return next(
-        (c for c in g_converters if c.src_type == src_type and c.dst_type == dst_type),
+        (c for c in converters if c.src_type == src_type and c.dst_type == dst_type),
         None
     )
