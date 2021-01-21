@@ -8,7 +8,7 @@ g_field_iterators: List[types.FieldIter] = []
 
 def field_iterator(test=types.TestFn):
     def decorator(fn: Callable[[Any], types.FieldIterator]):
-        g_field_iterators.append(types.FieldIter(test=test, iter=fn))
+        g_field_iterators.append(types.FieldIter(test=test, iter_factory=fn))
         return fn
     return decorator
 

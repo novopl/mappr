@@ -1,4 +1,3 @@
-import dataclasses
 from typing import Any, Callable, Dict, Iterator, Type
 
 ConverterFn = Callable[[Any], Any]
@@ -8,10 +7,10 @@ FieldIterator = Iterator[str]
 TestFn = Callable[[Type], bool]
 
 
-@dataclasses.dataclass
 class FieldIter:
-    test: TestFn
-    iter: Callable[[Type], FieldIterator]
+    def __init__(self, test: TestFn, iter_factory: Callable[[type], FieldIterator]):
+        self.test = test
+        self.iter_factory = iter_factory
 
     def can_handle(self, any_cls: Type) -> bool:
         # We need to use getattr as using self.test will call test as a method
@@ -20,4 +19,4 @@ class FieldIter:
         return getattr(self, 'test')(any_cls)
 
     def make_iterator(self, any_cls: Type) -> FieldIterator:
-        return getattr(self, 'iter')(any_cls)
+        return getattr(self, 'iter_factory')(any_cls)

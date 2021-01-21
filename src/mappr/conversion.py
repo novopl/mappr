@@ -1,4 +1,3 @@
-import dataclasses
 from typing import Any, List, Optional, Type, TypeVar
 
 from . import exc, iterators, mappers, types
@@ -7,11 +6,17 @@ from . import exc, iterators, mappers, types
 T = TypeVar('T')
 
 
-@dataclasses.dataclass
 class TypeConverter:
-    src_type: Type
-    dst_type: Type
-    mapping: types.FieldMapping = dataclasses.field(default_factory=dict)
+    def __init__(
+        self,
+        src_type: Type,
+        dst_type: Type,
+        *,
+        mapping: Optional[types.FieldMapping] = None
+    ):
+        self.src_type = src_type
+        self.dst_type = dst_type
+        self.mapping = mapping or {}
 
     def convert(self, src_obj: Any) -> Any:
         values = {}
