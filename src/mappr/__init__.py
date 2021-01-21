@@ -4,9 +4,6 @@ This will be especially useful types <-> models conversions.
 """
 from .conversion import (  # noqa: F401
     convert,
-    register,
-    register_iso,
-    TypeConverter,
 )
 from .exc import (  # noqa: F401
     ConverterAlreadyExists,
@@ -22,10 +19,17 @@ from .mappers import (  # noqa: F401
     set_const,
     use_default,
 )
+from .registry import (  # noqa: F401
+    register,
+    register_iso,
+)
 from .types import (  # noqa: F401
+    ConverterFn,
     FieldIterator,
     MappingFn,
-    ConverterFn,
+    TypeConverter,
 )
+# Initialize all optional integrations.
+from . import integrations  # noqa: F401, E402
 
 __version__ = '0.1.20'

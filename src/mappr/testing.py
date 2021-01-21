@@ -3,7 +3,7 @@ import pytest
 
 @pytest.fixture
 def scoped_register():
-    from mappr.conversion import g_converters
+    from mappr.registry import g_converters
 
     reset_token = g_converters.set([])
     yield

@@ -35,7 +35,3 @@ def _find_field_iter(any_cls: Type) -> Optional[types.FieldIter]:
 @field_iterator(test=lambda cls: dataclasses.is_dataclass(cls))
 def dataclass_iter_fields(model_cls: Type) -> types.FieldIterator:
     yield from (f.name for f in dataclasses.fields(model_cls))
-
-
-# Initialize all optional integrations.
-from . import integrations  # noqa: F401
