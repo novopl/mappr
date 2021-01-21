@@ -1,39 +1,18 @@
-from typing import Any, List, Optional, Type, TypeVar
+from typing import Any, Dict, Type, TypeVar
 
-from . import exc, iterators, mappers, types
+from . import iterators, mappers, registry
+from .enums import Strategy
 
 
 T = TypeVar('T')
 
 
-class TypeConverter:
-    def __init__(
-        self,
-        src_type: Type,
-        dst_type: Type,
-        *,
-        mapping: Optional[types.FieldMapping] = None
-    ):
-        self.src_type = src_type
-        self.dst_type = dst_type
-        self.mapping = mapping or {}
-
-    def convert(self, src_obj: Any) -> Any:
-        values = {}
-
-        for name in iterators.iter_fields(self.dst_type):
-            mapping_fn = self.mapping.get(name, mappers.map_directly)
-
-            if mapping_fn != mappers.use_default:
-                values[name] = mapping_fn(src_obj, name)
-
-        return self.dst_type(**values)
-
-
-g_converters: List[TypeConverter] = []
-
-
-def convert(dst_type: Type[T], src_obj, strict: bool = True) -> T:
+def convert(
+    dst_type: Type[T],
+    src_obj,
+    strict: bool = True,
+    strategy: Strategy = Strategy.CONSTRUCTOR,
+) -> T:
     """ Convert an object to a given type.
 
     Args:
@@ -49,52 +28,28 @@ def convert(dst_type: Type[T], src_obj, strict: bool = True) -> T:
         A newly created instance of ``dst_type`` with values initialized
         from ``src_obj``.
     """
-    converter = _get_converter(src_obj.__class__, dst_type, strict=strict)
-    return converter.convert(src_obj)
+    converter = registry.get_converter(src_obj.__class__, dst_type, strict=strict)
+    values = {}
 
+    for name in iterators.iter_fields(dst_type):
+        mapping_fn = converter.mapping.get(name, mappers.alias(name))
 
-def register(src, dst, mapping: Optional[types.FieldMapping] = None):
-    """ Register new converter.
+        if mapping_fn != mappers.use_default:
+            values[name] = mapping_fn(src_obj, name)
 
-    Args:
-        src:
-        dst:
-        mapping:
-
-    Returns:
-
-    """
-    existing = _find_converter(src, dst)
-    if existing:
-        raise exc.ConverterAlreadyExists(src, dst)
-
-    g_converters.append(TypeConverter(
-        src_type=src,
-        dst_type=dst,
-        mapping=mapping or {},
-    ))
-
-
-def _get_converter(src_type: Type, dst_type: Type[T], strict: bool) -> TypeConverter:
-    """ Do everything to return a converter or raise if it's not possible.
-
-    In **strict** mode, it will not create an ad-hoc default converter and will
-    require the converter to have been registered earlier.
-    """
-    converter = _find_converter(src_type, dst_type)
-    if converter:
-        return converter
-    elif not strict:
-        # If not strict, create an ad-hoc converter for the types. This will try
-        # to map the properties from `dst_type` to src_type. `dst_types` attributes
-        # must be a subset of `src_type` attributes.
-        return TypeConverter(src_type=src_type, dst_type=dst_type)
+    if strategy == Strategy.CONSTRUCTOR:
+        return _build_by_constructor(dst_type, values)
     else:
-        raise exc.NoConverter(src_type, dst_type)
+        return _build_by_setattr(dst_type, values)
 
 
-def _find_converter(src_type, dst_type) -> Optional[TypeConverter]:
-    return next(
-        (c for c in g_converters if c.src_type == src_type and c.dst_type == dst_type),
-        None
-    )
+def _build_by_constructor(dst_type: Type[T], values: Dict[str, Any]) -> T:
+    return dst_type(**values)   # type: ignore
+
+
+def _build_by_setattr(dst_type: Type[T], values: Dict[str, Any]) -> T:
+    result = dst_type()
+    for name, value in values.items():
+        setattr(result, name, value)
+
+    return result

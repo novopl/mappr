@@ -3,11 +3,10 @@ from typing import Any
 from . import types
 
 
-def map_directly(src_obj: Any, name: str) -> Any:
-    if not hasattr(src_obj, name):
-        cls_name = src_obj.__class__.__name__
-        raise ValueError(f"{cls_name} does not have '{name}' property.")
-    return getattr(src_obj, name)
+def alias(aliased_name: str) -> types.MappingFn:
+    def mapper(src_obj: Any, name: str) -> Any:
+        return getattr(src_obj, aliased_name)
+    return mapper
 
 
 def set_const(value: Any) -> types.MappingFn:

@@ -1,7 +1,5 @@
 import dataclasses
 
-import pytest
-
 import mappr
 
 
@@ -17,22 +15,32 @@ class Dst:
     num: int = 20
 
 
-def test_use_default():
-    basic = mappr.TypeConverter(Src, Dst)
-    with_default = mappr.TypeConverter(Src, Dst, mapping=dict(
-        num=mappr.use_default,
-    ))
-
-    src = Src()
-
-    assert basic.convert(src) == Dst(text='hello', num=10)
-    assert with_default.convert(src) == Dst(text='hello', num=20)
+class EmptyConstructor:
+    def __init__(self):
+        self.text = 'hi'
+        self.num = 30
 
 
-def test_cannot_register_converter_twice_for_the_same_types():
-    mappr.register(Src, Dst, mapping=dict(
-        num=mappr.use_default,
-    ))
+@mappr.field_iterator(test=lambda any_cls: issubclass(any_cls, EmptyConstructor))
+def empty_constructor_support(any_cls: EmptyConstructor) -> mappr.FieldIterator:
+    yield from ['text', 'num']
 
-    with pytest.raises(mappr.ConverterAlreadyExists):
-        mappr.register(Src, Dst)
+
+def test_auto_generated_converter(scoped_register):
+    mappr.register(Src, Dst)
+
+    assert mappr.convert(Dst, Src()) == Dst(text='hello', num=10)
+
+
+def test_use_default(scoped_register):
+    mappr.register(Src, Dst, mapping=dict(num=mappr.use_default))
+
+    assert mappr.convert(Dst, Src()) == Dst(text='hello', num=20)
+
+
+def test_can_use_setattr_strategy(scoped_register):
+    mappr.register(Src, EmptyConstructor)
+
+    result = mappr.convert(EmptyConstructor, Src(), strategy=mappr.Strategy.SETATTR)
+    assert result.text == 'hello'
+    assert result.num == 10
