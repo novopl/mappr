@@ -30,15 +30,15 @@ def _find_field_iter(any_cls: Type) -> Optional[types.FieldIter]:
 # libraries out of the box.
 try:
     from .integrations import dataclasses   # noqa: F401
-except ImportError:
-    pass
+except ImportError:  # nocov
+    pass  # nocov
 
 try:
     from .integrations import pydantic   # noqa: F401
-except ImportError:
-    pass
+except ImportError:  # nocov
+    pass  # nocov
 
 try:
     from .integrations import sqlalchemy   # noqa: F401
-except ImportError:
-    pass
+except ImportError:  # nocov
+    pass  # nocov

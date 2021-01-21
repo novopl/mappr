@@ -1,4 +1,4 @@
-from typing import Any, List, Optional, Type, TypeVar
+from typing import Any, Dict, List, Optional, Type, TypeVar
 
 from . import exc, iterators, mappers, types
 
@@ -22,7 +22,7 @@ class TypeConverter:
         values = {}
 
         for name in iterators.iter_fields(self.dst_type):
-            mapping_fn = self.mapping.get(name, mappers.map_directly)
+            mapping_fn = self.mapping.get(name, mappers.alias(name))
 
             if mapping_fn != mappers.use_default:
                 values[name] = mapping_fn(src_obj, name)
@@ -30,6 +30,7 @@ class TypeConverter:
         return self.dst_type(**values)
 
 
+TypeConverterList: List[TypeConverter]
 g_converters: List[TypeConverter] = []
 
 
@@ -53,7 +54,12 @@ def convert(dst_type: Type[T], src_obj, strict: bool = True) -> T:
     return converter.convert(src_obj)
 
 
-def register(src, dst, mapping: Optional[types.FieldMapping] = None):
+def register(
+    src_type: Type,
+    dst_type: Type,
+    mapping: Optional[types.FieldMapping] = None,
+    strict: bool = True
+):
     """ Register new converter.
 
     Args:
@@ -64,15 +70,36 @@ def register(src, dst, mapping: Optional[types.FieldMapping] = None):
     Returns:
 
     """
-    existing = _find_converter(src, dst)
+    existing = _find_converter(src_type, dst_type)
     if existing:
-        raise exc.ConverterAlreadyExists(src, dst)
+        if strict:
+            raise exc.ConverterAlreadyExists(src_type, dst_type)
+        else:
+            g_converters.remove(existing)
 
     g_converters.append(TypeConverter(
-        src_type=src,
-        dst_type=dst,
+        src_type=src_type,
+        dst_type=dst_type,
         mapping=mapping or {},
     ))
+
+
+def register_iso(
+    src_type: Type,
+    dst_type: Type,
+    mapping: Optional[Dict[str, str]] = None,
+    strict: bool = True
+):
+    mapping = mapping or {}
+
+    if strict:
+        if _find_converter(src_type, dst_type):
+            raise exc.ConverterAlreadyExists(src_type, dst_type)
+        if _find_converter(dst_type, src_type):
+            raise exc.ConverterAlreadyExists(dst_type, src_type)
+
+    register(src_type, dst_type, {k: mappers.alias(v) for k, v in mapping.items()})
+    register(dst_type, src_type, {v: mappers.alias(k) for k, v in mapping.items()})
 
 
 def _get_converter(src_type: Type, dst_type: Type[T], strict: bool) -> TypeConverter:

@@ -2,10 +2,30 @@
 
 This will be especially useful types <-> models conversions.
 """
-from .conversion import convert, register, TypeConverter        # noqa: F401
-from .exc import ConverterAlreadyExists, Error, NoConverter     # noqa: F401
-from .iterators import field_iterator, iter_fields              # noqa: F401
-from .mappers import map_directly, set_const, use_default       # noqa: F401
-from .types import FieldIterator, MappingFn, ConverterFn        # noqa: F401
+from .conversion import (  # noqa: F401
+    convert,
+    register,
+    register_iso,
+    TypeConverter,
+)
+from .exc import (  # noqa: F401
+    ConverterAlreadyExists,
+    Error,
+    NoConverter,
+)
+from .iterators import (  # noqa: F401
+    field_iterator,
+    iter_fields,
+)
+from .mappers import (  # noqa: F401
+    alias,
+    set_const,
+    use_default,
+)
+from .types import (  # noqa: F401
+    FieldIterator,
+    MappingFn,
+    ConverterFn,
+)
 
 __version__ = '0.1.20'

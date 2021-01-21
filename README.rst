@@ -35,10 +35,6 @@ cases (off by default).
 
 .. readme_about_end
 
-.. note::
-
-    Python 3.6 support will be added soon (need to make dataclasses an
-    optional import).
 
 Links
 =====
