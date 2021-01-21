@@ -12,6 +12,7 @@ from .exc import (  # noqa: F401
     ConverterAlreadyExists,
     Error,
     NoConverter,
+    TypeNotSupported,
 )
 from .iterators import (  # noqa: F401
     field_iterator,

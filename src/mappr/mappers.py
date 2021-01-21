@@ -5,7 +5,7 @@ from . import types
 
 def alias(aliased_name: str) -> types.MappingFn:
     def mapper(src_obj: Any, name: str) -> Any:
-        return getattr(src_obj, aliased_name)
+        return getattr(src_obj, aliased_name, None)
     return mapper
 
 

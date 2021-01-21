@@ -9,7 +9,7 @@ set -e
 
 {% if files %}
   {{ 'mypy' | header }}
-  mypy {{ files | wrap_paths }}
+  mypy --config-file=ops/mypy.ini {{ files | wrap_paths }}
 
   {{ 'pycodestyle' | header }}
   pycodestyle --config=ops/pycodestyle.ini {{ files | wrap_paths }};
