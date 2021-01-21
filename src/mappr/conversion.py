@@ -96,8 +96,12 @@ def register_iso(
         if _find_converter(dst_type, src_type):
             raise exc.ConverterAlreadyExists(dst_type, src_type)
 
-    register(src_type, dst_type, {k: mappers.alias(v) for k, v in mapping.items()})
-    register(dst_type, src_type, {v: mappers.alias(k) for k, v in mapping.items()})
+    register(src_type, dst_type, strict=strict, mapping={
+        k: mappers.alias(v) for k, v in mapping.items()
+    })
+    register(dst_type, src_type, strict=strict, mapping={
+        v: mappers.alias(k) for k, v in mapping.items()
+    })
 
 
 def _get_converter(src_type: Type, dst_type: Type[T], strict: bool) -> TypeConverter:
