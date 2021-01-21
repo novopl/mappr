@@ -111,6 +111,10 @@ tag_format = '{tag}:'
     tag = 'dev'
     header = 'Dev tasks'
 
+    [[tool.peltak.changelog.tags]]
+    tag = 'refactor'
+    header = 'Refactored'
+
 
 [tool.peltak.version]
 files = [
