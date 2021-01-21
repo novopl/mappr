@@ -20,10 +20,12 @@ class Error(Exception):
 
 
 class ConverterAlreadyExists(Error):
-    status = 500
     msg = "Converter already exists for {0.__name__} -> {1.__name__}"
 
 
 class NoConverter(Error):
-    status = 500
     msg = "Converter missing for {0.__name__} -> {1.__name__}"
+
+
+class TypeNotSupported(Error):
+    msg = "Target type {0.__name__} not supported"

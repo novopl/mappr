@@ -2,7 +2,7 @@ import dataclasses
 from contextvars import ContextVar
 from typing import Any, Callable, List, Optional, Type
 
-from . import types
+from . import exc, types
 
 
 FieldIterList = List[types.FieldIter]
@@ -22,6 +22,8 @@ def iter_fields(any_cls: Type):
     field_iter = _find_field_iter(any_cls)
     if field_iter:
         yield from field_iter.make_iterator(any_cls)
+    else:
+        raise exc.TypeNotSupported(any_cls)
 
 
 def _find_field_iter(any_cls: Type) -> Optional[types.FieldIter]:

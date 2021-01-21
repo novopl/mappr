@@ -5,6 +5,9 @@ This will be especially useful types <-> models conversions.
 from .conversion import (  # noqa: F401
     convert,
 )
+from .enums import (  # noqa: F401
+    Strategy,
+)
 from .exc import (  # noqa: F401
     ConverterAlreadyExists,
     Error,
@@ -12,7 +15,6 @@ from .exc import (  # noqa: F401
 )
 from .iterators import (  # noqa: F401
     field_iterator,
-    iter_fields,
 )
 from .mappers import (  # noqa: F401
     alias,
