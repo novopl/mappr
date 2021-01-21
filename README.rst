@@ -9,7 +9,7 @@
                 :target: https://codecov.io/gh/novopl/mappr
 .. |mypy| image:: https://img.shields.io/badge/type_checked-mypy-informational.svg
 .. |license| image:: https://img.shields.io/badge/License-Apache2-blue.svg
-.. |py_ver| image:: https://img.shields.io/badge/python-3.7+-blue.svg
+.. |py_ver| image:: https://img.shields.io/badge/python-3.6+-blue.svg
 .. |nbsp| unicode:: 0xA0
 
 .. readme_badges_end
