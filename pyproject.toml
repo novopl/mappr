@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "mappr"
-version = "0.2.0"
+version = "0.2.1"
 description = ""
 authors = ["Mateusz Klos <novopl@gmail.com>"]
 repository = "https://github.com/novopl/mappr"
@@ -32,6 +32,7 @@ flake8 = "^3.8.4"
 Sphinx = "^3.4.3"
 sphinx-autodoc-typehints = "^1.11.1"
 codecov = "^2.1.11"
+SQLAlchemy = "^1.3.22"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]

@@ -12,6 +12,7 @@ from .exc import (  # noqa: F401
     ConverterAlreadyExists,
     Error,
     NoConverter,
+    TypeNotSupported,
 )
 from .iterators import (  # noqa: F401
     field_iterator,
@@ -34,4 +35,4 @@ from .types import (  # noqa: F401
 # Initialize all optional integrations.
 from . import integrations  # noqa: F401, E402
 
-__version__ = '0.2.0'
+__version__ = '0.2.1'
