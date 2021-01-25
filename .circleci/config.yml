@@ -23,6 +23,7 @@ jobs:
             echo '== whoami ================================================'
             whoami
             echo '== poetry install ========================================'
+            poetry config virtualenvs.create true
             poetry config virtualenvs.in-project true
             poetry show -v
             poetry install --no-ansi
@@ -84,6 +85,8 @@ jobs:
           command: |
             poetry run peltak changelog > ./RELEASE_NOTES
             poetry run peltak version --porcelain > ./RELEASE_VERSION
+            cat ./RELEASE_VERSION
+            cat ./RELEASE_NOTES
 
       - run:
           name: Create release tag
