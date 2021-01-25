@@ -10,7 +10,7 @@ license = "Proprietary"
 packages = [
     { include = "mappr", from = "src" },
 ]
-include = ["LICENSE", "AUTHORS", "README.rst"]
+include = ["LICENSE", "AUTHORS", "README.rst", "**/py.typed"]
 exclude = ["tests/**", "ops/**", ".venv/**"]
 
 [tool.poetry.dependencies]
