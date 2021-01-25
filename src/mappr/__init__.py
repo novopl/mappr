@@ -35,4 +35,4 @@ from .types import (  # noqa: F401
 # Initialize all optional integrations.
 from . import integrations  # noqa: F401, E402
 
-__version__ = '0.2.1'
+__version__ = '0.2.2'
