@@ -1,5 +1,6 @@
 import dataclasses
 from typing import Any, Callable, Dict, Iterator, Type
+from .enums import Strategy
 
 ConverterFn = Callable[[Any], Any]
 MappingFn = Callable[[Any], Any]
@@ -28,3 +29,4 @@ class TypeConverter:
     src_type: Type
     dst_type: Type
     mapping: FieldMapping = dataclasses.field(default_factory=dict)
+    strategy: Strategy = Strategy.CONSTRUCTOR
