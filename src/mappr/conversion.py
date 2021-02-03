@@ -35,7 +35,7 @@ def convert(
         mapping_fn = converter.mapping.get(name, mappers.alias(name))
 
         if mapping_fn != mappers.use_default:
-            values[name] = mapping_fn(src_obj, name)
+            values[name] = mapping_fn(src_obj)
 
     if strategy == Strategy.CONSTRUCTOR:
         return _build_by_constructor(dst_type, values)

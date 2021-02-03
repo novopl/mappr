@@ -28,8 +28,8 @@ class UserPublic:
 # mapping will be copied directly. The source type needs the have attributes
 # that match the name, otherwise an exception is raised.
 mappr.register(User, Person, mapping=dict(
-    nick=lambda obj, name: obj.username,
-    name=lambda obj, name: f"{obj.first_name} {obj.last_name}",
+    nick=lambda o: o.username,
+    name=lambda o: f"{o.first_name} {o.last_name}",
 ))
 
 # We can now create a an instance of ``User`` so we can test our converter.

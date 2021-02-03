@@ -2,7 +2,7 @@ import dataclasses
 from typing import Any, Callable, Dict, Iterator, Type
 
 ConverterFn = Callable[[Any], Any]
-MappingFn = Callable[[Any, str], Any]
+MappingFn = Callable[[Any], Any]
 FieldMapping = Dict[str, MappingFn]
 FieldIterator = Iterator[str]
 TestFn = Callable[[Type], bool]
