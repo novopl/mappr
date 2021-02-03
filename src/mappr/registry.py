@@ -2,6 +2,7 @@ from contextvars import ContextVar
 from typing import Dict, List, Optional, Type, TypeVar
 
 from . import exc, mappers, types
+from .enums import Strategy
 
 
 T = TypeVar('T')
@@ -12,6 +13,7 @@ g_converters: ContextVar[TypeConverterList] = ContextVar('g_converters', default
 def register(
     src_type: Type,
     dst_type: Type,
+    strategy: Strategy = Strategy.CONSTRUCTOR,
     mapping: Optional[types.FieldMapping] = None,
     strict: bool = True
 ):
@@ -38,12 +40,14 @@ def register(
         src_type=src_type,
         dst_type=dst_type,
         mapping=mapping or {},
+        strategy=strategy,
     ))
 
 
 def register_iso(
     src_type: Type,
     dst_type: Type,
+    strategy: Strategy = Strategy.CONSTRUCTOR,
     mapping: Optional[Dict[str, str]] = None,
     strict: bool = True,
 ):
@@ -55,10 +59,10 @@ def register_iso(
         if find_converter(dst_type, src_type):
             raise exc.ConverterAlreadyExists(dst_type, src_type)
 
-    register(src_type, dst_type, strict=strict, mapping={
+    register(src_type, dst_type, strategy=strategy, strict=strict, mapping={
         k: mappers.alias(v) for k, v in mapping.items()
     })
-    register(dst_type, src_type, strict=strict, mapping={
+    register(dst_type, src_type, strategy=strategy, strict=strict, mapping={
         v: mappers.alias(k) for k, v in mapping.items()
     })
 
