@@ -4,8 +4,8 @@ from . import types
 
 
 def alias(aliased_name: str) -> types.MappingFn:
-    def mapper(src_obj: Any, name: str) -> Any:
-        return getattr(src_obj, aliased_name, None)
+    def mapper(o: Any) -> Any:
+        return getattr(o, aliased_name, None)
     return mapper
 
 
@@ -51,12 +51,12 @@ def set_const(value: Any) -> types.MappingFn:
         >>> dst.num
         100
     """
-    def mapper(src_obj: Any, name: str) -> Any:
+    def mapper(o: Any) -> Any:
         return value
     return mapper
 
 
-def use_default(src_obj: Any, name: str) -> Any:
+def use_default(o: Any) -> Any:
     """ Indicate we want to use default field value  rather than value from source object
 
     Args:

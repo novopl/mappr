@@ -1,4 +1,4 @@
-from typing import Any, Dict, Type, TypeVar
+from typing import Any, Dict, Optional, Type, TypeVar
 
 from . import iterators, mappers, registry
 from .enums import Strategy
@@ -11,7 +11,7 @@ def convert(
     dst_type: Type[T],
     src_obj,
     strict: bool = True,
-    strategy: Strategy = Strategy.CONSTRUCTOR,
+    strategy: Optional[Strategy] = None,
 ) -> T:
     """ Convert an object to a given type.
 
@@ -29,13 +29,14 @@ def convert(
         from ``src_obj``.
     """
     converter = registry.get_converter(src_obj.__class__, dst_type, strict=strict)
+    strategy = strategy or converter.strategy
     values = {}
 
     for name in iterators.iter_fields(dst_type):
         mapping_fn = converter.mapping.get(name, mappers.alias(name))
 
         if mapping_fn != mappers.use_default:
-            values[name] = mapping_fn(src_obj, name)
+            values[name] = mapping_fn(src_obj)
 
     if strategy == Strategy.CONSTRUCTOR:
         return _build_by_constructor(dst_type, values)

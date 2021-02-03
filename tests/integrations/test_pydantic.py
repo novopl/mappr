@@ -84,9 +84,9 @@ mappr.register(User, UserInternal, mapping=dict(
     pw_hash=mappr.set_const(None),
 ))
 mappr.register(User, WonkyUser, mapping=dict(
-    nick=lambda o, n: o.username,
-    first_name=lambda o, n: o.name,
-    joined_at=lambda o, n: o.created_at,
+    nick=lambda o: o.username,
+    first_name=lambda o: o.name,
+    joined_at=lambda o: o.created_at,
 ))
 
 
