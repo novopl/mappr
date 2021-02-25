@@ -6,7 +6,7 @@ from . import exc, types
 
 
 FieldIterList = List[types.FieldIter]
-g_field_iterators: ContextVar[FieldIterList] = ContextVar('g_field_iterators', default=[])
+g_field_iterators: ContextVar[FieldIterList] = ContextVar("g_field_iterators", default=[])
 
 
 def field_iterator(test=types.TestFn):
@@ -28,10 +28,7 @@ def iter_fields(any_cls: Type):
 
 def _find_field_iter(any_cls: Type) -> Optional[types.FieldIter]:
     field_iterators = g_field_iterators.get()
-    return next(
-        (x for x in field_iterators if x.can_handle(any_cls)),
-        None
-    )
+    return next((x for x in field_iterators if x.can_handle(any_cls)), None)
 
 
 @field_iterator(test=lambda cls: dataclasses.is_dataclass(cls))

@@ -6,11 +6,12 @@ from . import types
 def alias(aliased_name: str) -> types.MappingFn:
     def mapper(o: Any) -> Any:
         return getattr(o, aliased_name, None)
+
     return mapper
 
 
 def set_const(value: Any) -> types.MappingFn:
-    """ Always set the field to the given value during conversion.
+    """Always set the field to the given value during conversion.
 
     You can use `mappr.set_const` if you want to set an attribute to a constant
     value during conversion, without concern about the source object. Every
@@ -51,13 +52,15 @@ def set_const(value: Any) -> types.MappingFn:
         >>> dst.num
         100
     """
+
     def mapper(o: Any) -> Any:
         return value
+
     return mapper
 
 
 def use_default(o: Any) -> Any:
-    """ Indicate we want to use default field value  rather than value from source object
+    """Indicate we want to use default field value  rather than value from source object
 
     Args:
         src_obj:    The converted object. Not used here, but part of the mappers
@@ -106,4 +109,4 @@ def use_default(o: Any) -> Any:
         >>> dst.num
         20
     """
-    return lambda src_obj, name: None   # nocov
+    return lambda src_obj, name: None  # nocov

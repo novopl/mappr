@@ -4,14 +4,9 @@ from typing import Optional
 class Error(Exception):
     msg: str
 
-    def __init__(
-        self,
-        *args,
-        detail: Optional[str] = None,
-        **kw
-    ):
+    def __init__(self, *args, detail: Optional[str] = None, **kw):
         super(Error, self).__init__(
-            self.msg.format(*args, **kw) + (f": {detail}" if detail else '')
+            self.msg.format(*args, **kw) + (f": {detail}" if detail else "")
         )
 
         self.detail = detail

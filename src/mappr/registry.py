@@ -5,9 +5,9 @@ from . import exc, mappers, types
 from .enums import Strategy
 
 
-T = TypeVar('T')
+T = TypeVar("T")
 TypeConverterList = List[types.TypeConverter]
-g_converters: ContextVar[TypeConverterList] = ContextVar('g_converters', default=[])
+g_converters: ContextVar[TypeConverterList] = ContextVar("g_converters", default=[])
 
 
 def register(
@@ -15,9 +15,9 @@ def register(
     dst_type: Type,
     strategy: Strategy = Strategy.CONSTRUCTOR,
     mapping: Optional[types.FieldMapping] = None,
-    strict: bool = True
+    strict: bool = True,
 ):
-    """ Register new converter.
+    """Register new converter.
 
     Args:
         src:
@@ -36,12 +36,14 @@ def register(
         else:
             converters.remove(existing)
 
-    converters.append(types.TypeConverter(
-        src_type=src_type,
-        dst_type=dst_type,
-        mapping=mapping or {},
-        strategy=strategy,
-    ))
+    converters.append(
+        types.TypeConverter(
+            src_type=src_type,
+            dst_type=dst_type,
+            mapping=mapping or {},
+            strategy=strategy,
+        )
+    )
 
 
 def register_iso(
@@ -59,16 +61,24 @@ def register_iso(
         if find_converter(dst_type, src_type):
             raise exc.ConverterAlreadyExists(dst_type, src_type)
 
-    register(src_type, dst_type, strategy=strategy, strict=strict, mapping={
-        k: mappers.alias(v) for k, v in mapping.items()
-    })
-    register(dst_type, src_type, strategy=strategy, strict=strict, mapping={
-        v: mappers.alias(k) for k, v in mapping.items()
-    })
+    register(
+        src_type,
+        dst_type,
+        strategy=strategy,
+        strict=strict,
+        mapping={k: mappers.alias(v) for k, v in mapping.items()},
+    )
+    register(
+        dst_type,
+        src_type,
+        strategy=strategy,
+        strict=strict,
+        mapping={v: mappers.alias(k) for k, v in mapping.items()},
+    )
 
 
 def get_converter(src_type: Type, dst_type: Type[T], strict: bool) -> types.TypeConverter:
-    """ Do everything to return a converter or raise if it's not possible.
+    """Do everything to return a converter or raise if it's not possible.
 
     In **strict** mode, it will not create an ad-hoc default converter and will
     require the converter to have been registered earlier.
@@ -89,5 +99,5 @@ def find_converter(src_type, dst_type) -> Optional[types.TypeConverter]:
     converters = g_converters.get()
     return next(
         (c for c in converters if c.src_type == src_type and c.dst_type == dst_type),
-        None
+        None,
     )

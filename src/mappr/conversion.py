@@ -4,7 +4,7 @@ from . import iterators, mappers, registry
 from .enums import Strategy
 
 
-T = TypeVar('T')
+T = TypeVar("T")
 
 
 def convert(
@@ -13,7 +13,7 @@ def convert(
     strict: bool = True,
     strategy: Optional[Strategy] = None,
 ) -> T:
-    """ Convert an object to a given type.
+    """Convert an object to a given type.
 
     Args:
         dst_type:   Target type. This is the type of the return value.
@@ -45,7 +45,7 @@ def convert(
 
 
 def _build_by_constructor(dst_type: Type[T], values: Dict[str, Any]) -> T:
-    return dst_type(**values)   # type: ignore
+    return dst_type(**values)  # type: ignore
 
 
 def _build_by_setattr(dst_type: Type[T], values: Dict[str, Any]) -> T:
