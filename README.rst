@@ -41,12 +41,12 @@ Links
 
 * `Documentation`_
 
-    * `Contributing`_
+    * `Contribute`_
     * `Reference`_
 
 
 .. _Documentation: https://novopl.github.io/mappr
-.. _Contributing: https://novopl.github.io/mappr/pages/contributing.html
+.. _Contribute: https://novopl.github.io/mappr/pages/contrib.html
 .. _Reference: https://novopl.github.io/mappr/pages/reference.html
 
 
@@ -66,6 +66,10 @@ or if you're using poetry.
     $ poetry add mappr
 
 .. readme_installation_end
+
+
+If you'd like to setup the project locally for development, see `Contribute`_ for
+more details.
 
 
 Quick Example
