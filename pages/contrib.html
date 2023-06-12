@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="lang:clipboard.copy" content="Copy to clipboard">
@@ -44,24 +44,26 @@
   <meta name="theme-color" content="#3f51b5">
   <script src="../_static/javascripts/modernizr.js"></script>
   
-  <script>
-      window.ga = window.ga || function () {
-          (ga.q = ga.q || []).push(arguments)
-      };
-      ga.l = +new Date;
-      ga('create', 'UA-187740680-1', 'auto');
-      ga('send', 'pageview');
-  </script>
-  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-187740680-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'UA-187740680-1');
+</script>
   
   
-    <title>Contributing &#8212; mappr 0.3.4 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/material.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
+    <title>Contributing &#8212; mappr 0.3.5 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/material.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Reference Documentation" href="reference.html" />
@@ -89,7 +91,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex navheader">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../index.html" title="mappr 0.3.4 documentation"
+        <a href="../index.html" title="mappr 0.3.5 documentation"
            class="md-header-nav__button md-logo">
           
             <i class="md-icon">&#x267E</i>
@@ -111,7 +113,7 @@
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
-    <form class="md-search__form" action="../search.html" method="GET" name="search">
+    <form class="md-search__form" action="../search.html" method="get" name="search">
       <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
@@ -175,7 +177,7 @@
   <nav class="md-tabs" data-md-component="tabs">
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
-          <li class="md-tabs__item"><a href="../index.html" class="md-tabs__link">mappr 0.3.4 documentation</a></li>
+          <li class="md-tabs__item"><a href="../index.html" class="md-tabs__link">mappr 0.3.5 documentation</a></li>
       </ul>
     </div>
   </nav>
@@ -187,13 +189,13 @@
               <div class="md-sidebar__inner">
                 <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="../index.html" title="mappr 0.3.4 documentation" class="md-nav__button md-logo">
+    <a href="../index.html" title="mappr 0.3.5 documentation" class="md-nav__button md-logo">
       
         <i class="md-icon">&#x267E</i>
       
     </a>
     <a href="../index.html"
-       title="mappr 0.3.4 documentation">mappr</a>
+       title="mappr 0.3.5 documentation">mappr</a>
   </label>
     <div class="md-nav__source">
       <a href="https://github.com/novopl/mappr" title="Go to repository" class="md-source" data-md-source="github">
@@ -318,36 +320,36 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  
-<h1 id="pages-contrib--page-root">Contributing<a class="headerlink" href="#pages-contrib--page-root" title="Permalink to this headline">¶</a></h1>
-
-<h2 id="setup-up-the-project-for-development">Setup up the project for development<a class="headerlink" href="#setup-up-the-project-for-development" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ git clone git@github.com:novopl/mappr.git
-$ <span class="nb">cd</span> mappr
-$ poetry install
-$ poetry shell
+  <section id="contributing">
+<h1 id="pages-contrib--page-root">Contributing<a class="headerlink" href="#pages-contrib--page-root" title="Permalink to this heading">¶</a></h1>
+<section id="setup-up-the-project-for-development">
+<h2 id="setup-up-the-project-for-development">Setup up the project for development<a class="headerlink" href="#setup-up-the-project-for-development" title="Permalink to this heading">¶</a></h2>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>git<span class="w"> </span>clone<span class="w"> </span>git@github.com:novopl/mappr.git
+$<span class="w"> </span><span class="nb">cd</span><span class="w"> </span>mappr
+$<span class="w"> </span>poetry<span class="w"> </span>install
+$<span class="w"> </span>poetry<span class="w"> </span>shell
 </pre></div>
 </div>
-
-<h3 id="running-tests">Running tests<a class="headerlink" href="#running-tests" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ peltak <span class="nb">test</span>
+<section id="running-tests">
+<h3 id="running-tests">Running tests<a class="headerlink" href="#running-tests" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>peltak<span class="w"> </span><span class="nb">test</span>
 </pre></div>
 </div>
-
-
-<h3 id="linting">Linting<a class="headerlink" href="#linting" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ peltak check
+</section>
+<section id="linting">
+<h3 id="linting">Linting<a class="headerlink" href="#linting" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>peltak<span class="w"> </span>check
 </pre></div>
 </div>
-
-
-<h3 id="generating-docs">Generating docs<a class="headerlink" href="#generating-docs" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ peltak docs
+</section>
+<section id="generating-docs">
+<h3 id="generating-docs">Generating docs<a class="headerlink" href="#generating-docs" title="Permalink to this heading">¶</a></h3>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$<span class="w"> </span>peltak<span class="w"> </span>docs
 </pre></div>
 </div>
-
-
-
+</section>
+</section>
+</section>
 
 
           </article>
@@ -396,7 +398,7 @@ $ poetry shell
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>

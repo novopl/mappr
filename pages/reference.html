@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
   <meta name="lang:clipboard.copy" content="Copy to clipboard">
@@ -44,24 +44,26 @@
   <meta name="theme-color" content="#3f51b5">
   <script src="../_static/javascripts/modernizr.js"></script>
   
-  <script>
-      window.ga = window.ga || function () {
-          (ga.q = ga.q || []).push(arguments)
-      };
-      ga.l = +new Date;
-      ga('create', 'UA-187740680-1', 'auto');
-      ga('send', 'pageview');
-  </script>
-  <script async src='https://www.google-analytics.com/analytics.js'></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-187740680-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+        dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'UA-187740680-1');
+</script>
   
   
-    <title>Reference Documentation &#8212; mappr 0.3.4 documentation</title>
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/material.css" type="text/css" />
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
+    <title>Reference Documentation &#8212; mappr 0.3.5 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/material.css" />
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/doctools.js"></script>
+    <script src="../_static/sphinx_highlight.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Contributing" href="contrib.html" />
@@ -88,7 +90,7 @@
   <nav class="md-header-nav md-grid">
     <div class="md-flex navheader">
       <div class="md-flex__cell md-flex__cell--shrink">
-        <a href="../index.html" title="mappr 0.3.4 documentation"
+        <a href="../index.html" title="mappr 0.3.5 documentation"
            class="md-header-nav__button md-logo">
           
             <i class="md-icon">&#x267E</i>
@@ -110,7 +112,7 @@
 <div class="md-search" data-md-component="search" role="dialog">
   <label class="md-search__overlay" for="__search"></label>
   <div class="md-search__inner" role="search">
-    <form class="md-search__form" action="../search.html" method="GET" name="search">
+    <form class="md-search__form" action="../search.html" method="get" name="search">
       <input type="text" class="md-search__input" name="q" placeholder="Search"
              autocapitalize="off" autocomplete="off" spellcheck="false"
              data-md-component="query" data-md-state="active">
@@ -174,7 +176,7 @@
   <nav class="md-tabs" data-md-component="tabs">
     <div class="md-tabs__inner md-grid">
       <ul class="md-tabs__list">
-          <li class="md-tabs__item"><a href="../index.html" class="md-tabs__link">mappr 0.3.4 documentation</a></li>
+          <li class="md-tabs__item"><a href="../index.html" class="md-tabs__link">mappr 0.3.5 documentation</a></li>
       </ul>
     </div>
   </nav>
@@ -186,13 +188,13 @@
               <div class="md-sidebar__inner">
                 <nav class="md-nav md-nav--primary" data-md-level="0">
   <label class="md-nav__title md-nav__title--site" for="__drawer">
-    <a href="../index.html" title="mappr 0.3.4 documentation" class="md-nav__button md-logo">
+    <a href="../index.html" title="mappr 0.3.5 documentation" class="md-nav__button md-logo">
       
         <i class="md-icon">&#x267E</i>
       
     </a>
     <a href="../index.html"
-       title="mappr 0.3.4 documentation">mappr</a>
+       title="mappr 0.3.5 documentation">mappr</a>
   </label>
     <div class="md-nav__source">
       <a href="https://github.com/novopl/mappr" title="Go to repository" class="md-source" data-md-source="github">
@@ -241,9 +243,21 @@
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#pages-reference--page-root" class="md-nav__link">Reference Documentation</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#core" class="md-nav__link">Core</a>
+        <li class="md-nav__item"><a href="#core" class="md-nav__link">Core</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#mappr.register" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">register()</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#built-in-field-mappers" class="md-nav__link">Built-in field mappers</a>
+        <li class="md-nav__item"><a href="#mappr.convert" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">convert()</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#built-in-field-mappers" class="md-nav__link">Built-in field mappers</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#mappr.use_default" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">use_default()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#mappr.set_const" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">set_const()</span></code></a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -285,9 +299,21 @@
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#pages-reference--page-root" class="md-nav__link">Reference Documentation</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#core" class="md-nav__link">Core</a>
+        <li class="md-nav__item"><a href="#core" class="md-nav__link">Core</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#mappr.register" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">register()</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#built-in-field-mappers" class="md-nav__link">Built-in field mappers</a>
+        <li class="md-nav__item"><a href="#mappr.convert" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">convert()</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#built-in-field-mappers" class="md-nav__link">Built-in field mappers</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#mappr.use_default" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">use_default()</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#mappr.set_const" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">set_const()</span></code></a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -305,59 +331,59 @@
         <div class="md-content">
           <article class="md-content__inner md-typeset" role="main">
             
-  
-<h1 id="pages-reference--page-root">Reference Documentation<a class="headerlink" href="#pages-reference--page-root" title="Permalink to this headline">¶</a></h1>
-
-<h2 id="core">Core<a class="headerlink" href="#core" title="Permalink to this headline">¶</a></h2>
+  <section id="reference-documentation">
+<h1 id="pages-reference--page-root">Reference Documentation<a class="headerlink" href="#pages-reference--page-root" title="Permalink to this heading">¶</a></h1>
+<section id="core">
+<h2 id="core">Core<a class="headerlink" href="#core" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mappr.register">
-<code class="sig-prename descclassname">mappr.</code><code class="sig-name descname">register</code><span class="sig-paren">(</span><em class="sig-param">src_type</em>, <em class="sig-param">dst_type</em>, <em class="sig-param">strategy=&lt;Strategy.CONSTRUCTOR: 'constructor'&gt;</em>, <em class="sig-param">mapping=None</em>, <em class="sig-param">strict=True</em><span class="sig-paren">)</span><a class="headerlink" href="#mappr.register" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mappr.register">
+<span class="sig-prename descclassname"><span class="pre">mappr.</span></span><span class="sig-name descname"><span class="pre">register</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">src_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dst_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">Strategy.CONSTRUCTOR</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mapping</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mappr.register" title="Permalink to this definition">¶</a></dt>
 <dd><p>Register new converter.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>src</strong> – </p></li>
 <li><p><strong>dst</strong> – </p></li>
-<li><p><strong>mapping</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]]]) – </p></li>
+<li><p><strong>mapping</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Optional" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Dict" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Dict</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></a>, <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]]]) – </p></li>
 </ul>
 </dd>
 </dl>
 <p>Returns:</p>
 </dd></dl>
 <dl class="py function">
-<dt id="mappr.convert">
-<code class="sig-prename descclassname">mappr.</code><code class="sig-name descname">convert</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">dst_type</span></em>, <em class="sig-param"><span class="n">src_obj</span></em>, <em class="sig-param"><span class="n">strict</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">strategy</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mappr.convert" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mappr.convert">
+<span class="sig-prename descclassname"><span class="pre">mappr.</span></span><span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dst_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">src_obj</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strict</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">strategy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mappr.convert" title="Permalink to this definition">¶</a></dt>
 <dd><p>Convert an object to a given type.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>dst_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a>[~T]) – Target type. This is the type of the return value.</p></li>
+<li><p><strong>dst_type</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Type" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Type</span></code></a>[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)]) – Target type. This is the type of the return value.</p></li>
 <li><p><strong>src_obj</strong> – An object to convert. A registered converter will be used
 to map between the attributes of this object and the target
 type.</p></li>
-<li><p><strong>strict</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.10)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – If set to <code class="docutils literal notranslate"><span class="pre">False</span></code> and the converter is not found for the
+<li><p><strong>strict</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></a>) – If set to <code class="docutils literal notranslate"><span class="pre">False</span></code> and the converter is not found for the
 given type pair, it will create an ad-hoc one that maps
 the attributes by their name. Defaults to <code class="docutils literal notranslate"><span class="pre">True</span></code></p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p>~T</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.TypeVar" title="(in Python v3.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">TypeVar</span></code></a>(<code class="docutils literal notranslate"><span class="pre">T</span></code>)</p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A newly created instance of <code class="docutils literal notranslate"><span class="pre">dst_type</span></code> with values initialized
 from <code class="docutils literal notranslate"><span class="pre">src_obj</span></code>.</p>
 </dd>
 </dl>
 </dd></dl>
-
-
-<h2 id="built-in-field-mappers">Built-in field mappers<a class="headerlink" href="#built-in-field-mappers" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="built-in-field-mappers">
+<h2 id="built-in-field-mappers">Built-in field mappers<a class="headerlink" href="#built-in-field-mappers" title="Permalink to this heading">¶</a></h2>
 <dl class="py function">
-<dt id="mappr.use_default">
-<code class="sig-prename descclassname">mappr.</code><code class="sig-name descname">use_default</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">o</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mappr.use_default" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mappr.use_default">
+<span class="sig-prename descclassname"><span class="pre">mappr.</span></span><span class="sig-name descname"><span class="pre">use_default</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mappr.use_default" title="Permalink to this definition">¶</a></dt>
 <dd><p>Indicate we want to use default field value  rather than value from source object</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>src_obj</strong> – The converted object. Not used here, but part of the mappers
 interface so has to be defined.</p></li>
@@ -365,10 +391,10 @@ interface so has to be defined.</p></li>
 mappers interface.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a></p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A mapping function for the field. This is just a stub, as <a class="reference internal" href="#mappr.convert" title="mappr.convert"><code class="xref any py py-func docutils literal notranslate"><span class="pre">mappr.convert</span></code></a>
 will just skip the field if it’s mapper is set to <a class="reference internal" href="#mappr.use_default" title="mappr.use_default"><code class="xref any py py-func docutils literal notranslate"><span class="pre">mappr.use_default</span></code></a>.</p>
 </dd>
@@ -385,24 +411,24 @@ during the creation of the final result.</p>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">mappr</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
 <span class="gp">... </span><span class="k">class</span> <span class="nc">Src</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'hello'</span>
 <span class="gp">... </span>    <span class="n">num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
 <span class="gp">... </span><span class="k">class</span> <span class="nc">Dst</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span>
 <span class="gp">... </span>    <span class="n">num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mappr</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Src</span><span class="p">,</span> <span class="n">Dst</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">num</span><span class="o">=</span><span class="n">mappr</span><span class="o">.</span><span class="n">use_default</span>
 <span class="gp">... </span><span class="p">))</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">src</span> <span class="o">=</span> <span class="n">Src</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dst</span> <span class="o">=</span> <span class="n">mappr</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">Dst</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dst</span><span class="o">.</span><span class="n">text</span>
 <span class="go">'hello'</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dst</span><span class="o">.</span><span class="n">num</span>
@@ -411,46 +437,46 @@ during the creation of the final result.</p>
 </div>
 </dd></dl>
 <dl class="py function">
-<dt id="mappr.set_const">
-<code class="sig-prename descclassname">mappr.</code><code class="sig-name descname">set_const</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">value</span></em><span class="sig-paren">)</span><a class="headerlink" href="#mappr.set_const" title="Permalink to this definition">¶</a></dt>
+<dt class="sig sig-object py" id="mappr.set_const">
+<span class="sig-prename descclassname"><span class="pre">mappr.</span></span><span class="sig-name descname"><span class="pre">set_const</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#mappr.set_const" title="Permalink to this definition">¶</a></dt>
 <dd><p>Always set the field to the given value during conversion.</p>
 <p>You can use <a class="reference internal" href="#mappr.set_const" title="mappr.set_const"><code class="xref any py py-func docutils literal notranslate"><span class="pre">mappr.set_const</span></code></a> if you want to set an attribute to a constant
 value during conversion, without concern about the source object. Every
 call to <a class="reference internal" href="#mappr.convert" title="mappr.convert"><code class="xref any py py-func docutils literal notranslate"><span class="pre">mappr.convert</span></code></a> will return the same <em>value</em>.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – The value to set on the field. Instead of using the source
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>) – The value to set on the field. Instead of using the source
 object attribute or target type field default, this value
 will be set on the field during conversion.</p>
 </dd>
-<dt class="field-even">Return type</dt>
-<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.10)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</p>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Callable" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code></a>[[<a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>], <a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Any" title="(in Python v3.11)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code></a>]</p>
 </dd>
-<dt class="field-odd">Returns</dt>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A mapping function.</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dataclasses</span> <span class="kn">import</span> <span class="n">dataclass</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">mappr</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
 <span class="gp">... </span><span class="k">class</span> <span class="nc">Src</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'hello'</span>
 <span class="gp">... </span>    <span class="n">num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="nd">@dataclass</span>
 <span class="gp">... </span><span class="k">class</span> <span class="nc">Dst</span><span class="p">:</span>
 <span class="gp">... </span>    <span class="n">text</span><span class="p">:</span> <span class="nb">str</span>
 <span class="gp">... </span>    <span class="n">num</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">20</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">mappr</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="n">Src</span><span class="p">,</span> <span class="n">Dst</span><span class="p">,</span> <span class="n">mapping</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
 <span class="gp">... </span>    <span class="n">num</span><span class="o">=</span><span class="n">mappr</span><span class="o">.</span><span class="n">set_const</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
 <span class="gp">... </span><span class="p">))</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">src</span> <span class="o">=</span> <span class="n">Src</span><span class="p">()</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dst</span> <span class="o">=</span> <span class="n">mappr</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">Dst</span><span class="p">,</span> <span class="n">src</span><span class="p">)</span>
-<span class="go">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dst</span><span class="o">.</span><span class="n">text</span>
 <span class="go">'hello'</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">dst</span><span class="o">.</span><span class="n">num</span>
@@ -458,8 +484,8 @@ will be set on the field during conversion.</p>
 </pre></div>
 </div>
 </dd></dl>
-
-
+</section>
+</section>
 
 
           </article>
@@ -497,7 +523,7 @@ will be set on the field during conversion.</p>
               
           </div>
             Created using
-            <a href="http://www.sphinx-doc.org/">Sphinx</a> 3.4.3.
+            <a href="http://www.sphinx-doc.org/">Sphinx</a> 7.0.1.
              and
             <a href="https://github.com/bashtage/sphinx-material/">Material for
               Sphinx</a>
