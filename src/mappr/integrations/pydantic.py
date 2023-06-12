@@ -1,4 +1,4 @@
-from typing import cast, Type
+from typing import Type, cast
 
 import pydantic
 

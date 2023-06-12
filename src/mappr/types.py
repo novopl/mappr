@@ -1,6 +1,8 @@
 import dataclasses
 from typing import Any, Callable, Dict, Iterator, Type
+
 from .enums import Strategy
+
 
 ConverterFn = Callable[[Any], Any]
 MappingFn = Callable[[Any], Any]
