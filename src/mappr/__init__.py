@@ -18,4 +18,4 @@ from .registry import register, register_iso  # noqa: F401
 from .types import ConverterFn, FieldIterator, MappingFn, TypeConverter  # noqa: F401
 
 
-__version__ = '0.3.4'
+__version__ = '0.3.5'
