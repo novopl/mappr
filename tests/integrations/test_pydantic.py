@@ -51,13 +51,13 @@ class Role(pydantic.BaseModel):
 
 
 class UserInternal(pydantic.BaseModel):
-    id: Optional[int]
+    id: Optional[int] = None
     email: str
     username: str
     name: str
     last_name: str
-    pw_hash: Optional[str]
-    token: Optional[str]
+    pw_hash: Optional[str] = None
+    token: Optional[str] = None
     type: UserType = UserType.REGULAR
 
     roles: List[Role] = pydantic.Field(default_factory=list)
