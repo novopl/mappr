@@ -4,6 +4,7 @@ from . import types
 
 
 def alias(aliased_name: str) -> types.MappingFn:
+    # TODO: Add docstring
     def mapper(o: Any) -> Any:
         return getattr(o, aliased_name, None)
     return mapper

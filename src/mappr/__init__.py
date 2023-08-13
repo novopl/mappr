@@ -14,8 +14,15 @@ from .exc import (  # noqa: F401
 )
 from .iterators import field_iterator  # noqa: F401
 from .mappers import alias, set_const, use_default  # noqa: F401
-from .registry import register, register_iso  # noqa: F401
-from .types import ConverterFn, FieldIterator, MappingFn, TypeConverter  # noqa: F401
+from .registry import custom_converter, register, register_iso  # noqa: F401
+from .types import (  # noqa: F401
+    ConverterFn,
+    CustomConverter,
+    FieldIterator,
+    MappingConverter,
+    MappingFn,
+    TypeConverter,
+)
 
 
 __version__ = '0.3.5'

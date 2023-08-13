@@ -1,6 +1,6 @@
-from typing import Any, Dict, Optional, Type, TypeVar
+from typing import Optional, Type, TypeVar
 
-from . import iterators, mappers, registry
+from . import registry
 from .enums import Strategy
 
 
@@ -30,27 +30,5 @@ def convert(
     """
     converter = registry.get_converter(src_obj.__class__, dst_type, strict=strict)
     strategy = strategy or converter.strategy
-    values = {}
 
-    for name in iterators.iter_fields(dst_type):
-        mapping_fn = converter.mapping.get(name, mappers.alias(name))
-
-        if mapping_fn != mappers.use_default:
-            values[name] = mapping_fn(src_obj)
-
-    if strategy == Strategy.CONSTRUCTOR:
-        return _build_by_constructor(dst_type, values)
-    else:
-        return _build_by_setattr(dst_type, values)
-
-
-def _build_by_constructor(dst_type: Type[T], values: Dict[str, Any]) -> T:
-    return dst_type(**values)   # type: ignore
-
-
-def _build_by_setattr(dst_type: Type[T], values: Dict[str, Any]) -> T:
-    result = dst_type()
-    for name, value in values.items():
-        setattr(result, name, value)
-
-    return result
+    return converter.convert(src_obj, strategy)

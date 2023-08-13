@@ -1,5 +1,5 @@
 from contextvars import ContextVar
-from typing import Dict, List, Optional, Type, TypeVar
+from typing import Callable, Dict, List, Optional, Type, TypeVar
 
 from . import exc, mappers, types
 from .enums import Strategy
@@ -8,6 +8,8 @@ from .enums import Strategy
 T = TypeVar('T')
 TypeConverterList = List[types.TypeConverter]
 g_converters: ContextVar[TypeConverterList] = ContextVar('g_converters', default=[])
+T_src = TypeVar('T_src')
+T_dst = TypeVar('T_dst')
 
 
 def register(
@@ -27,21 +29,52 @@ def register(
     Returns:
 
     """
-    existing = find_converter(src_type, dst_type)
+    _register_converter(
+        types.MappingConverter(
+            src_type=src_type,
+            dst_type=dst_type,
+            mapping=mapping or {},
+            strategy=strategy,
+        ),
+        strict=strict,
+    )
+
+
+def custom_converter(
+    src_type: Type[T_src],
+    dst_type: Type[T_dst],
+    strategy: Strategy = Strategy.CONSTRUCTOR,
+    strict: bool = True
+):
+    """ Decorator for registering a custom conversion functions. """
+    def decorator(conversion_fn: Callable[[T_src, Strategy], T_dst]):
+        _register_converter(
+            types.CustomConverter(
+                src_type=src_type,
+                dst_type=dst_type,
+                strategy=strategy,
+                custom_converter=conversion_fn,
+            ),
+            strict=strict,
+        )
+
+        return conversion_fn
+
+    return decorator
+
+
+def _register_converter(converter: types.TypeConverter, strict: bool = True):
+    """ Register new converter. """
+    existing = find_converter(converter.src_type, converter.dst_type)
     converters = g_converters.get()
 
     if existing:
         if strict:
-            raise exc.ConverterAlreadyExists(src_type, dst_type)
+            raise exc.ConverterAlreadyExists(converter.src_type, converter.dst_type)
         else:
             converters.remove(existing)
 
-    converters.append(types.TypeConverter(
-        src_type=src_type,
-        dst_type=dst_type,
-        mapping=mapping or {},
-        strategy=strategy,
-    ))
+    converters.append(converter)
 
 
 def register_iso(
@@ -80,7 +113,11 @@ def get_converter(src_type: Type, dst_type: Type[T], strict: bool) -> types.Type
         # If not strict, create an ad-hoc converter for the types. This will try
         # to map the properties from `dst_type` to src_type. `dst_types` attributes
         # must be a subset of `src_type` attributes.
-        return types.TypeConverter(src_type=src_type, dst_type=dst_type)
+        return types.MappingConverter(
+            src_type=src_type,
+            dst_type=dst_type,
+            strategy=Strategy.CONSTRUCTOR,
+        )
     else:
         raise exc.NoConverter(src_type, dst_type)
 

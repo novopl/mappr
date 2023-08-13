@@ -55,3 +55,18 @@ def test_can_override_strategy_for_single_conversion(scoped_register):
         'name': 'John',
         'age': 25,
     }
+
+
+def test_can_use_custom_converter(scoped_register):
+
+    @mappr.custom_converter(src_type=Person, dst_type=User)
+    def _person_to_account(person: Person, strategy: mappr.Strategy) -> User:
+        return User(
+            name='Custom',
+            age=1337,
+        )
+
+    user = mappr.convert(User, Person(name='John', age=25))
+
+    assert user.name == 'Custom'
+    assert user.age == 1337
