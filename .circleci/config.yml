@@ -7,6 +7,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
+          name: Restore dependencies cache
           key: deps-{{ checksum ".circleci/config.yml" }}-{{ checksum "poetry.lock" }}
 
       - run:
@@ -23,6 +24,18 @@ jobs:
             poetry install -n --no-ansi
             echo '=========================================================='
 
+      - save_cache:
+          name: Save dependencies cache
+          key: deps-{{ checksum ".circleci/config.yml" }}-{{ checksum "poetry.lock" }}
+          paths:
+            - /usr/local/bin
+            - /usr/local/lib/python3.8/site-packages
+            - .venv
+
+      - restore_cache:
+          name: Restore tools cache
+          key: tools-{{ checksum ".circleci/config.yml" }}-{{ checksum "poetry.lock" }}
+
       - run:
           name: Check
           command: poetry run peltak check
@@ -31,21 +44,19 @@ jobs:
           name: Test
           command: poetry run peltak test --junit
 
-      - save_cache:
-          key: deps-{{ checksum ".circleci/config.yml" }}-{{ checksum "poetry.lock" }}
-          paths:
-            - /usr/local/bin
-            - /usr/local/lib/python3.8/site-packages
-            - .venv
-            - .mypy_cache
-            - .pytest_cache
-
       - run:
           name: Build Documentation
           command: |
             poetry run peltak docs --recreate --run-doctests
             mv docs/html docs/mappr-docs
             cd docs && zip -r ../.build/mappr-docs.zip mappr-docs
+
+      - save_cache:
+          name: Save tools cache
+          key: tools-{{ checksum ".circleci/config.yml" }}-{{ checksum "poetry.lock" }}
+          paths:
+            - .mypy_cache
+            - .pytest_cache
 
       - store_test_results:
           path: .build/test-results
