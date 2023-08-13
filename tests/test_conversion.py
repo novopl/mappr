@@ -94,7 +94,7 @@ def test_can_use_extra_values_in_mapping_converter(scoped_register):
     account = mappr.convert(
         Account,
         Person(name='John', age=25),
-        extra={'name': 'ExtraName'},
+        name='ExtraName',
     )
 
     # THEN
@@ -119,7 +119,7 @@ def test_can_use_extra_values_in_custom_converter(scoped_register):
         )
 
     # WHEN
-    user = mappr.convert(User, Person(name='John', age=25), extra={'name': 'ExtraName'})
+    user = mappr.convert(User, Person(name='John', age=25), name='ExtraName')
 
     # THEN
     assert user.name == 'ExtraName'
