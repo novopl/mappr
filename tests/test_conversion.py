@@ -59,14 +59,68 @@ def test_can_override_strategy_for_single_conversion(scoped_register):
 
 def test_can_use_custom_converter(scoped_register):
 
+    # GIVEN
     @mappr.custom_converter(src_type=Person, dst_type=User)
-    def _person_to_account(person: Person, strategy: mappr.Strategy) -> User:
+    def _person_to_account(
+        person: Person,
+        extra: mappr.Values,
+        strategy: mappr.Strategy,
+    ) -> User:
         return User(
             name='Custom',
             age=1337,
         )
 
+    # WHEN
     user = mappr.convert(User, Person(name='John', age=25))
 
+    # THEN
     assert user.name == 'Custom'
+    assert user.age == 1337
+
+
+def test_can_use_extra_values_in_mapping_converter(scoped_register):
+    # GIVEN
+    mappr.register(
+        src_type=Person,
+        dst_type=Account,
+        strategy=mappr.Strategy.SETATTR,
+        mapping=dict(
+            name=lambda o, extra: extra['name']
+        ),
+    )
+
+    # WHEN
+    account = mappr.convert(
+        Account,
+        Person(name='John', age=25),
+        extra={'name': 'ExtraName'},
+    )
+
+    # THEN
+    assert asdict(account) == {
+        'name': 'ExtraName',
+        'age': 25,
+    }
+
+
+def test_can_use_extra_values_in_custom_converter(scoped_register):
+
+    # GIVEN
+    @mappr.custom_converter(src_type=Person, dst_type=User)
+    def _person_to_account(
+        person: Person,
+        extra: mappr.Values,
+        strategy: mappr.Strategy,
+    ) -> User:
+        return User(
+            name=extra['name'],
+            age=1337,
+        )
+
+    # WHEN
+    user = mappr.convert(User, Person(name='John', age=25), extra={'name': 'ExtraName'})
+
+    # THEN
+    assert user.name == 'ExtraName'
     assert user.age == 1337

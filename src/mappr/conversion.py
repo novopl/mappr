@@ -1,6 +1,6 @@
 from typing import Optional, Type, TypeVar
 
-from . import registry
+from . import registry, types
 from .enums import Strategy
 
 
@@ -12,6 +12,7 @@ def convert(
     src_obj,
     strict: bool = True,
     strategy: Optional[Strategy] = None,
+    extra: Optional[types.Values] = None,
 ) -> T:
     """ Convert an object to a given type.
 
@@ -28,7 +29,8 @@ def convert(
         A newly created instance of ``dst_type`` with values initialized
         from ``src_obj``.
     """
+    extra = extra or dict()
     converter = registry.get_converter(src_obj.__class__, dst_type, strict=strict)
     strategy = strategy or converter.strategy
 
-    return converter.convert(src_obj, strategy)
+    return converter.convert(src_obj, strategy, extra)

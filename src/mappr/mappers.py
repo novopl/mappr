@@ -5,7 +5,7 @@ from . import types
 
 def alias(aliased_name: str) -> types.MappingFn:
     # TODO: Add docstring
-    def mapper(o: Any) -> Any:
+    def mapper(o: Any, extra: types.Values) -> Any:
         return getattr(o, aliased_name, None)
     return mapper
 
@@ -52,7 +52,7 @@ def set_const(value: Any) -> types.MappingFn:
         >>> dst.num
         100
     """
-    def mapper(o: Any) -> Any:
+    def mapper(o: Any, extra: types.Values) -> Any:
         return value
     return mapper
 
@@ -107,4 +107,4 @@ def use_default(o: Any) -> Any:
         >>> dst.num
         20
     """
-    return lambda src_obj, name: None   # nocov
+    return lambda src_obj, extra: None   # nocov

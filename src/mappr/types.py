@@ -7,12 +7,12 @@ from .enums import Strategy
 
 T_src = TypeVar('T_src')
 T_dst = TypeVar('T_dst')
+Values = Dict[str, Any]
 ConverterFn = Callable[[Any], Any]
-MappingFn = Callable[[Any], Any]
+MappingFn = Callable[[T_src, Values], Any]
 FieldMapping = Dict[str, MappingFn]
 FieldIterator = Iterator[str]
 TestFn = Callable[[Type], bool]
-T = TypeVar('T')
 
 
 @dataclasses.dataclass
@@ -37,12 +37,17 @@ class TypeConverter(abc.ABC, Generic[T_src, T_dst]):
     strategy: Strategy
 
     @abc.abstractmethod
-    def convert(self, src_obj: T_src, strategy: Optional[Strategy] = None) -> T_dst:
+    def convert(
+        self,
+        src_obj: T_src,
+        strategy: Optional[Strategy] = None,
+        extra: Optional[Values] = None,
+    ) -> T_dst:
         ...
 
     def build_result(
         self,
-        values: Dict[str, Any],
+        values: Values,
         strategy: Optional[Strategy] = None,
     ) -> T_dst:
         strategy = strategy or self.strategy
@@ -53,11 +58,11 @@ class TypeConverter(abc.ABC, Generic[T_src, T_dst]):
             return self.build_by_setattr(self.dst_type, values)
 
     @staticmethod
-    def build_by_constructor(dst_type: Type[T_dst], values: Dict[str, Any]) -> T_dst:
-        return dst_type(**values)   # type: ignore
+    def build_by_constructor(dst_type: Type[T_dst], values: Values) -> T_dst:
+        return dst_type(**values)
 
     @staticmethod
-    def build_by_setattr(dst_type: Type[T_dst], values: Dict[str, Any]) -> T_dst:
+    def build_by_setattr(dst_type: Type[T_dst], values: Values) -> T_dst:
         result = dst_type()
         for name, value in values.items():
             setattr(result, name, value)
@@ -69,23 +74,36 @@ class TypeConverter(abc.ABC, Generic[T_src, T_dst]):
 class MappingConverter(TypeConverter[T_src, T_dst]):
     mapping: FieldMapping = dataclasses.field(default_factory=dict)
 
-    def convert(self, src_obj: T_src, strategy: Optional[Strategy] = None) -> T_dst:
+    def convert(
+        self,
+        src_obj: T_src,
+        strategy: Optional[Strategy] = None,
+        extra: Optional[Values] = None,
+    ) -> T_dst:
         from . import iterators, mappers
 
+        extra = extra or {}
         values = {}
         for name in iterators.iter_fields(self.dst_type):
             mapping_fn = self.mapping.get(name, mappers.alias(name))
 
             if mapping_fn != mappers.use_default:
-                values[name] = mapping_fn(src_obj)
+                values[name] = mapping_fn(src_obj, extra)
 
         return self.build_result(values, strategy)
 
 
 @dataclasses.dataclass
 class CustomConverter(TypeConverter[T_src, T_dst]):
-    custom_converter: Callable[[T_src, Strategy], T_dst]
+    custom_converter: Callable[[T_src, Values, Strategy], T_dst]
 
-    def convert(self, src_obj: T_src, strategy: Optional[Strategy] = None) -> T_dst:
+    def convert(
+        self,
+        src_obj: T_src,
+        strategy: Optional[Strategy] = None,
+        extra: Optional[Values] = None,
+    ) -> T_dst:
+        extra = extra or {}
         strategy = strategy or self.strategy
-        return self.custom_converter(src_obj, strategy)
+
+        return self.custom_converter(src_obj, extra, strategy)

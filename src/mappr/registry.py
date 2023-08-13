@@ -47,7 +47,7 @@ def custom_converter(
     strict: bool = True
 ):
     """ Decorator for registering a custom conversion functions. """
-    def decorator(conversion_fn: Callable[[T_src, Strategy], T_dst]):
+    def decorator(conversion_fn: Callable[[T_src, types.Values, Strategy], T_dst]):
         _register_converter(
             types.CustomConverter(
                 src_type=src_type,
