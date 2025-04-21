@@ -1,6 +1,6 @@
 [project]
 name = "mappr"
-version = "0.4.1"
+version = "0.5.0"
 requires-python = ">=3.10"
 description = ""
 license = { text = "Proprietary" }
@@ -17,6 +17,7 @@ Issues = "https://novopl.github.io/mappr/issues"
 
 [project.scripts]
 fae = 'fae.cli:cli'
+
 
 
 [dependency-groups]
