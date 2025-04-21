@@ -38,5 +38,6 @@ cfg:
       - '*.pytest_cache'
       - '*.build'
       - '*__pycache__'
+      - '*.ruff_cache'
     exclude:
       - .venv

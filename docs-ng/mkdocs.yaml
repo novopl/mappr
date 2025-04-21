@@ -1,0 +1,56 @@
+site_name: mappr documentation
+dev_addr: 127.0.0.1:12097
+docs_dir: src
+nav:
+  - README: index.md
+  - pages/contrib.md
+  - pages/reference.md
+
+watch:
+  - ../src
+  - ../README.md
+
+
+markdown_extensions:
+  - pymdownx.inlinehilite
+  - pymdownx.snippets:
+      check_paths: true
+  - pymdownx.highlight:
+      default_lang: python
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
+
+theme:
+  name: material
+  palette:
+    scheme: slate
+#   features:
+#     - content.code.copy
+#     # - navigation.instant
+#     # - navigation.tabs
+#     # - navigation.tabs.sticky
+plugins:
+  - search
+  - mkdocstrings:
+      enabled: true
+      default_handler: python
+      handlers:
+        python:
+          options:
+            docstring_style: google
+            docstring_section_style: spacy
+            show_source: False
+            annotations_path: brief
+            show_signature: true
+            show_signature_annotations: true
+            separate_signature: true
+            show_symbol_type_heading: true
+            show_symbol_type_toc: true
+            heading_level: 3

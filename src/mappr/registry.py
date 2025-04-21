@@ -22,8 +22,9 @@ def register(
     """ Register new converter.
 
     Args:
-        src:
-        dst:
+        src_type:
+        dst_type:
+        strategy:
         mapping:
         strict:
 

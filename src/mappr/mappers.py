@@ -4,6 +4,7 @@ from . import types
 
 
 def alias(aliased_name: str) -> types.MappingFn:
+    """The value in the src object has just a different name than in the dst object."""
     # TODO: Add docstring
     def mapper(o: Any, extra: types.Values) -> Any:
         return getattr(o, aliased_name, None)
@@ -11,7 +12,7 @@ def alias(aliased_name: str) -> types.MappingFn:
 
 
 def set_const(value: Any) -> types.MappingFn:
-    """ Always set the field to the given value during conversion.
+    """Always set the field to the given value during conversion.
 
     You can use `mappr.set_const` if you want to set an attribute to a constant
     value during conversion, without concern about the source object. Every
@@ -58,7 +59,7 @@ def set_const(value: Any) -> types.MappingFn:
 
 
 def use_default(value: Any, extra: types.Values) -> Any:
-    """ Indicate we want to use default field value  rather than value from source object
+    """Indicate we want to use default field value  rather than value from source object
 
     By default, if the attribute exists on the source object, it's value will be
     used when creating the result. That happens even if the destination type

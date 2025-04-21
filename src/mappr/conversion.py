@@ -9,7 +9,7 @@ T = TypeVar('T')
 
 def convert(
     dst_type: Type[T],
-    src_obj,
+    src_obj: Any,
     strict: bool = True,
     strategy: Optional[Strategy] = None,
     **extra: Any,
@@ -24,6 +24,8 @@ def convert(
         strict:     If set to ``False`` and the converter is not found for the
                     given type pair, it will create an ad-hoc one that maps
                     the attributes by their name. Defaults to ``True``
+        strategy:   Creation strategy
+        extra:      Extra arguments to pass to the converter.
 
     Returns:
         A newly created instance of ``dst_type`` with values initialized

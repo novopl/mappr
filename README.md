@@ -31,12 +31,17 @@ cases (off by default).
 
 ## Installation
 
+### uv
+```shell
+uv add mappr
+```
+
+### pip
 ```shell
 pip install mappr
 ```
 
-or if you're using poetry.
-
+### poetry
 ```shell
 poetry add mappr
 ```
