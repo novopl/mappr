@@ -1,0 +1,30 @@
+name: Setup Project
+description: "Install python, uv and all dependencies"
+runs:
+  using: composite
+  steps:
+    - name: Cache
+      uses: actions/cache@v4
+      with:
+        key: uv-${{ runner.o }}-${{ hashFiles('uv.lock') }}-${{ hashFiles('.github/workflows/common.yaml') }}-${{ hashFiles('.github/workflows/master.yaml') }}-${{ hashFiles('.github/workflows/release.yaml') }}
+        path: |
+          ~/.cache/pip
+          ~/.local
+          .venv
+          .mypy_cache
+          .pytest_cache
+        restore-keys: |
+          uv-${{ runner.os }}-
+
+    - name: Setup python env
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: Install uv
+      shell: bash
+      run: pipx install uv
+
+    - name: Install project dependencies
+      shell: bash
+      run: uv sync --all-groups

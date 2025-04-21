@@ -10,44 +10,47 @@ jobs:
     name: common
     uses: ./.github/workflows/_common.yaml
 
-  publish:
-    name: Publish and Create Release
+  pypi:
+    name: Publish to PyPI
     runs-on: ubuntu-latest
     needs:
       - checks
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Cache
-        uses: actions/cache@v4
-        with:
-          key: uv-${{ runner.o }}-${{ hashFiles('uv.lock') }}-${{ hashFiles('.github/workflows/common.yaml') }}-${{ hashFiles('.github/workflows/master.yaml') }}-${{ hashFiles('.github/workflows/release.yaml') }}
-          path: |
-            ~/.cache/pip
-            ~/.local
-            .venv
-            .mypy_cache
-            .pytest_cache
-          restore-keys: |
-            uv-${{ runner.os }}-
-
-      - name: Setup python env
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
-      - name: Install uv
-        run: pipx install uv
-
-      - name: Install project dependencies
-        run: uv sync --all-groups
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-project
 
       - name: Build package
         run: uv build --no-sources
 
       - name: Upload to pypi
         run: uv publish --token="${{ secrets.PYPI_TOKEN }}"
+
+      - name: Create github release
+        run: uv run peltak ci publish-release
+
+  gh_release:
+    name: GitHub Release
+    runs-on: ubuntu-latest
+    needs:
+      - checks
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-project
+
+      - name: Create github release
+        run: uv run peltak ci publish-release
+
+  gh_pages:
+    name: Publish docs
+    runs-on: ubuntu-latest
+    needs:
+      - checks
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup-project
+
+      - name: Build package
+        run: uv build --no-sources
 
       - name: Create github release
         run: uv run peltak ci publish-release
