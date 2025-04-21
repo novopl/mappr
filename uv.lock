@@ -356,21 +356,6 @@ wheels = [
 ]
 
 [[package]]
-name = "diff-cover"
-version = "9.2.4"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "chardet" },
-    { name = "jinja2" },
-    { name = "pluggy" },
-    { name = "pygments" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/3f/a8/20e11859ee291893ef9711ca868d277b66cdf886278e73abdb72b172cc5f/diff_cover-9.2.4.tar.gz", hash = "sha256:6ea44711f09199a1b8bcaa2eae002e1f337dd22f2d798fcfd62a6a1554bb2a86", size = 91359 }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/75/86/45de73eea30a789350ec91a83cdd525a68ac1ed294ae1a24e7de984e971d/diff_cover-9.2.4-py3-none-any.whl", hash = "sha256:c68b34e368b13888cb04a14aeb509821aab594c171a621e8bd3248435c9dd0c9", size = 53185 },
-]
-
-[[package]]
 name = "dnspython"
 version = "2.7.0"
 source = { registry = "https://pypi.org/simple" }
@@ -645,7 +630,6 @@ source = { editable = "." }
 dev = [
     { name = "coverage" },
     { name = "debugpy" },
-    { name = "diff-cover" },
     { name = "faker" },
     { name = "freezegun" },
     { name = "google-oauth" },
@@ -679,7 +663,6 @@ dev = [
 dev = [
     { name = "coverage", specifier = ">=7.6.10" },
     { name = "debugpy", specifier = ">=1.8.11" },
-    { name = "diff-cover", specifier = ">=9.2.2" },
     { name = "faker", specifier = ">=33.3.1" },
     { name = "freezegun", specifier = ">=1.5.1" },
     { name = "google-oauth", specifier = ">=1.0.1" },

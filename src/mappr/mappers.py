@@ -57,18 +57,8 @@ def set_const(value: Any) -> types.MappingFn:
     return mapper
 
 
-def use_default(o: Any) -> Any:
+def use_default(value: Any, extra: types.Values) -> Any:
     """ Indicate we want to use default field value  rather than value from source object
-
-    Args:
-        src_obj:    The converted object. Not used here, but part of the mappers
-                    interface so has to be defined.
-        name: l     Name of the converted field. Not used here, but part of the
-                    mappers interface.
-
-    Returns:
-        A mapping function for the field. This is just a stub, as `mappr.convert`
-        will just skip the field if it's mapper is set to `mappr.use_default`.
 
     By default, if the attribute exists on the source object, it's value will be
     used when creating the result. That happens even if the destination type
@@ -107,4 +97,4 @@ def use_default(o: Any) -> Any:
         >>> dst.num
         20
     """
-    return lambda src_obj, extra: None   # nocov
+    raise ValueError("This should not be called")

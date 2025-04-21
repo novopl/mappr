@@ -25,7 +25,9 @@ class User:
 
 
 def test_works(scoped_register):
-    mappr.register(User, UserModel, mapping=dict(id=mappr.use_default))
+    mappr.register(User, UserModel, mapping=dict(
+        id=mappr.use_default,
+    ))
 
     model = mappr.convert(UserModel, User())
 

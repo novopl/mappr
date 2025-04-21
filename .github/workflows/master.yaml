@@ -1,0 +1,15 @@
+name: Build Master Branch
+
+on:
+  push:
+    branches:
+      - master
+    tags-ignore:
+      - 'v*.*'
+
+
+jobs:
+  checks:
+    name: common
+    if: "${{ !startsWith(github.event.head_commit.message, 'Release: v') }}"
+    uses: ./.github/workflows/_common.yaml

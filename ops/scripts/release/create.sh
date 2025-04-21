@@ -6,22 +6,43 @@
 #       about: "Type of release to make: patch|minor|major. Defaults to 'patch'."
 #       type: str
 #       default: patch
+#     - name: ['-p', '--push']
+#       about: Push the release to GitHub.
+#       is_flag: True
 #   use:
 #     - cprint
-cprint "-- <32>Creating <95>{{ opts.type }}<32> release"
+#     - header
+
+echo "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
+
+header "Creating <33>{{ opts.type }}<95> release"
 
 uv run peltak version bump {{ opts.type }}
-git add pyproject.toml src/mappr/__init__.py
+uv sync
+
+header "Adding changed files to commit"
+git add pyproject.toml uv.lock src/mappr/__init__.py
 
 
+header "Creating the release message"
 uv run peltak changelog > .RELEASE_CHANGELOG
-echo "Release: $(peltak version --porcelain)\n" > .RELEASE_COMMIT_MSG
-uv run peltak changelog > .RELEASE_COMMIT_MSG
+echo "Release: v$(peltak version --porcelain)\n" > .RELEASE_COMMIT_MSG
+uv run peltak changelog --title "" >> .RELEASE_COMMIT_MSG
 
+header "Committing changes"
 git commit -F .RELEASE_COMMIT_MSG
 
-# uv run peltak git tag "v$(peltak version --porcelain)" -m "$(cat .RELEASE_CHANGELOG)"
-# git push origin master
-# git push origin v$(peltak version --porcelain)
+header "Tagging the release"
+uv run  peltak git tag "v$(peltak version --porcelain)" -m "$(cat .RELEASE_CHANGELOG)"
 
+{% if opts.push %}
+  header "Pushing to GitHub"
+  git push origin master
+  git push origin v$(peltak version --porcelain)
+{% endif %}
+
+header "Cleaning temporary files"
 rm .RELEASE_CHANGELOG .RELEASE_COMMIT_MSG
+
+cprint "<95>DONE"
+echo "\n"
