@@ -6,7 +6,7 @@ uv run peltak version --porcelain > ./RELEASE_VERSION
 git log -1 --pretty=%B | tee ./RELEASE_NOTES
 
 # Build release files and create GitHub release
-uv build --no-source
+uv build --no-sources
 gh release create \
   --repo "novopl/mappr" \
   --title "v$(cat ./RELEASE_VERSION)" \
