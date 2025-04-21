@@ -31,11 +31,13 @@ extensions = [
 # plantuml = 'java -jar {}'.format(repo_path('docs/bin/plantuml/plantuml.1.2019.9.jar'))
 # plantuml_output_format = 'svg'
 
-import mappr
+import mappr  # noqa: E402
+
+
 version = mappr.__version__
 release = mappr.__version__
 
-doctest_test_doctest_blocks='default'
+doctest_test_doctest_blocks = 'default'
 source_suffix = '.rst'
 master_doc = 'index'
 language = None

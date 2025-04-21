@@ -25,6 +25,7 @@ def register(
         src:
         dst:
         mapping:
+        strict:
 
     Returns:
 

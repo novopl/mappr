@@ -31,13 +31,13 @@
 {% set results_path = conf.build_dir  + '/test-results/results.xml' %}
 
 {% if opts.kind in ('all', 'doctest') %}
-  {{ "Running doctests" | header }}
-  PYTHONPATH=src pytest \
+  header "Running doctests"
+  pytest \
     --doctest-modules \
     --doctest-report ndiff \
     {{ ctx.verbose | count_flag('v') }} \
     {{ '-p no:sugar' if opts.no_sugar else '' }} \
-    src/{{ pkg_name }}
+    src/mappr docs/src
 
   # We do not fail if there are not doctests (would prevent running tests below).
   if [ $# -ne 0 ] && [ $# -ne 5 ]; then
@@ -48,22 +48,20 @@
 set -e
 
 {% if opts.kind != 'doctest' %}
-  {{ "Running tests" | header }}
+  header "Running tests"
   pytest \
-    --cov=src/{{ pkg_name }} \
+    --cov=src/mappr \
     --cov-report=term:skip-covered \
-    --cov-report=html:{{ cov_html_path }} \
     --cov-report=html:{{ cov_html_path }} \
     {{ '--cov-report=xml:' + cov_xml_path if opts.cov_xml else '' }} \
     {{ '--junitxml=' + results_path if opts.junit else '' }} \
     {{ ctx.verbose | count_flag('v') }} \
     {{ '-p no:sugar' if opts.no_sugar else '' }} \
     tests
-{% endif %}
 
-
-{% if opts.kind != 'doctest' %}
   {% set cov_path = proj_path(cov_html_path, 'index.html') %}
   {{ '\n<32>HTML report: <34>file://{}' | cprint(cov_path) }}
 {% endif %}
 
+
+echo "\n"

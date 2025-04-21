@@ -2,7 +2,7 @@ import itertools
 from dataclasses import asdict, dataclass
 from datetime import datetime
 from enum import Enum
-from typing import Any, List, Optional
+from typing import List, Optional
 
 import pydantic
 import pytest
@@ -90,11 +90,6 @@ mappr.register(User, WonkyUser, mapping=dict(
 ))
 
 
-@mappr.field_iterator(test=lambda cls: issubclass(cls, pydantic.BaseModel))
-def _pydantic_iter_fields(model_cls: Any) -> mappr.FieldIterator:
-    yield from model_cls.__fields__.keys()
-
-
 @pytest.fixture
 def user():
     yield User(
@@ -125,7 +120,7 @@ def test_user_to_internal(user):
         created_at=user.created_at,
         updated_at=user.updated_at,
     )
-    assert internal.dict() == expected.dict()
+    assert internal.model_dump() == expected.model_dump()
 
 
 def test_will_create_adhoc_converter_if_strict_is_false(user):
@@ -137,7 +132,7 @@ def test_will_create_adhoc_converter_if_strict_is_false(user):
         type=UserType.REGULAR,
         created_at=user.created_at,
     )
-    assert public.dict() == expected.dict()
+    assert public.model_dump() == expected.model_dump()
 
 
 def test_converter_has_to_be_registered_first_if_strict_is_True(user):

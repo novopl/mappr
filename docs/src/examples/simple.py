@@ -2,6 +2,7 @@ from dataclasses import dataclass
 
 import mappr
 
+
 # A few sample models to demonstrate mappr.
 @dataclass
 class User:
@@ -28,8 +29,8 @@ class UserPublic:
 # mapping will be copied directly. The source type needs the have attributes
 # that match the name, otherwise an exception is raised.
 mappr.register(User, Person, mapping=dict(
-    nick=lambda o: o.username,
-    name=lambda o: f"{o.first_name} {o.last_name}",
+    nick=lambda o, _: o.username,
+    name=lambda o, _: f"{o.first_name} {o.last_name}",
 ))
 
 # We can now create a an instance of ``User`` so we can test our converter.
@@ -57,6 +58,3 @@ assert mappr.convert(UserPublic, user, strict=False) == UserPublic(
     username='john.doe',
     first_name='John',
 )
-
-
-
