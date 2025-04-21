@@ -1,31 +1,19 @@
-.. readme_badges_start
+![Master](https://github.com/novopl/mappr/actions/workflows/master.yaml/badge.svg)
+![Release](https://github.com/novopl/mappr/actions/workflows/release.yaml/badge.svg)
+![mypy](https://img.shields.io/badge/type_checked-mypy-informational.svg)
+[![codecov](https://codecov.io/gh/novopl/mappr/branch/master/graph/badge.svg?token=SLX4NL21H9)](https://codecov.io/gh/novopl/mappr)
+![license](https://img.shields.io/badge/License-Apache2-blue.svg)
+![pyver](https://img.shields.io/badge/python-3.10+-blue.svg)
 
-|circleci| |nbsp| |codecov| |nbsp| |mypy| |nbsp| |license| |nbsp| |py_ver|
 
-
-.. |circleci| image:: https://circleci.com/gh/novopl/mappr.svg?style=shield
-                :target: https://circleci.com/gh/novopl/mappr
-.. |codecov| image:: https://codecov.io/gh/novopl/mappr/branch/master/graph/badge.svg?token=SLX4NL21H9
-                :target: https://codecov.io/gh/novopl/mappr
-.. |mypy| image:: https://img.shields.io/badge/type_checked-mypy-informational.svg
-.. |license| image:: https://img.shields.io/badge/License-Apache2-blue.svg
-.. |py_ver| image:: https://img.shields.io/badge/python-3.7+-blue.svg
-.. |nbsp| unicode:: 0xA0
-
-.. readme_badges_end
-
-#####
-mappr
-#####
+# mappr
 
 
 Easily convert between arbitrary types.
 
 
-Goals
-=====
+## Goals
 
-.. readme_about_start
 
 **mappr**'s goal is to make it as easy as possible to define custom converters
 between arbitrary types in python. It does not concern itself with validation
@@ -33,57 +21,41 @@ or coercion. It only provides a simple way to define a mapping between two
 types + some extra functionality to automatically generate converters for simple
 cases (off by default).
 
-.. readme_about_end
+
+## Links
+
+* [Documentation](https://novopl.github.io/mappr)
+    * [Contribute](https://novopl.github.io/mappr/pages/contrib.html)
+    * [Reference](https://novopl.github.io/mappr/pages/reference.html)
 
 
-Links
-=====
+## Installation
 
-* `Documentation`_
-
-    * `Contribute`_
-    * `Reference`_
-
-
-.. _Documentation: https://novopl.github.io/mappr
-.. _Contribute: https://novopl.github.io/mappr/pages/contrib.html
-.. _Reference: https://novopl.github.io/mappr/pages/reference.html
-
-
-Installation
-============
-
-.. readme_installation_start
-
-.. code-block:: shell
-
-    $ pip install mappr
+```shell
+pip install mappr
+```
 
 or if you're using poetry.
 
-.. code-block:: shell
-
-    $ poetry add mappr
-
-.. readme_installation_end
+```shell
+poetry add mappr
+```
 
 
-If you'd like to setup the project locally for development, see `Contribute`_ for
-more details.
+If you'd like to setup the project locally for development, see
+[Contribute](https://novopl.github.io/mappr/pages/contrib.html) for more details.
 
 
-Quick Example
-=============
+## Quick Example
 
-See the `Documentation`_ for more examples.
+See the [Documentation](https://novopl.github.io/mappr) for more examples.
 
-.. readme_example_start
 
 Assume we have a following types in our app. They represent pretty much the same
 thing, but different views of it.
 
-.. code-block:: python
 
+```python
     from dataclasses import dataclass
     import mappr
 
@@ -141,5 +113,4 @@ thing, but different views of it.
 
     user2 = mappr.Convert(User, person)
     assert user2 == user
-
-.. readme_example_end
+```
