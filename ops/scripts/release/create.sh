@@ -6,7 +6,7 @@
 #       about: "Type of release to make: patch|minor|major. Defaults to 'patch'."
 #       type: str
 #       default: patch
-#     - name: ['-p', '--push']
+#     - name: ['--no-push']
 #       about: Push the release to GitHub.
 #       is_flag: True
 #   use:
@@ -35,7 +35,7 @@ git commit -F .RELEASE_COMMIT_MSG
 header "Tagging the release"
 uv run  peltak git tag "v$(peltak version --porcelain)" -m "$(cat .RELEASE_CHANGELOG)"
 
-{% if opts.push %}
+{% if not opts.no_push %}
   header "Pushing to GitHub"
   git push origin master
   git push origin v$(peltak version --porcelain)
