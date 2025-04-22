@@ -35,6 +35,8 @@ jobs:
       - uses: ./.github/actions/setup-project
 
       - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: uv run peltak ci publish-release
 
   gh_pages:
