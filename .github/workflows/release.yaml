@@ -19,10 +19,10 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-project
 
-      - name: Build package
+      - name: Build Package
         run: uv build --no-sources
 
-      - name: Upload to pypi
+      - name: Upload to PyPI
         run: uv publish --token="${{ secrets.PYPI_TOKEN }}"
 
   gh_release:
@@ -34,7 +34,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: ./.github/actions/setup-project
 
-      - name: Create github release
+      - name: Create GitHub Release
         run: uv run peltak ci publish-release
 
   gh_pages:
@@ -47,36 +47,50 @@ jobs:
       - uses: ./.github/actions/setup-project
 
       - name: Build Docs
-        run: uv run peltak mkdocs build
+        run: uv run peltak docs build
 
       - name: Deploy gh-pages
         run: |
+            function cprint() {
+                echo -e $(echo "$@" | sed -E 's/<([0-9][0-9]?)>/\x1b[\1m/g')
+            }
+            function status() {
+              cprint "<33>=> <32>$@"
+            }
+
             git fetch --all
             git branch -v
             git checkout gh-pages
-            echo "=> Removing all existing files"
+            status "Existing files"
+            ls -lha
+            status "Removing all existing files"
             find . -maxdepth 1 \
                 ! -path "." \
-                ! -name "docs-ng" \
+                ! -name "docs" \
                 ! -name ".git" \
                 ! -name ".github" \
                 -exec rm -rf {} \;
 
-            echo "=> Copying docs contents to repo root"
-            cp -r docs-ng/dist/* ./
-            echo "=> Removing docs source dir"
-            rm -rf docs-ng
+            status "Copying docs contents to repo root"
+            cp -r docs/dist/* ./
+            status "=> Removing docs source dir"
+            rm -rf docs
 
             # Switch off jekyll to handle files starting with '_' properly, see:
             #   - https://stackoverflow.com/questions/57921401/push-to-origin-from-github-action
             #   - https://www.ianwootten.co.uk/2022/11/08/how-to-use-underscores-with-github-pages/
+            status "=> Disabling jekyll"
             touch ".nojekyll"
 
-            echo "=> Committing and pushing changes to gh-pages"
-            git add .
+            status "=> Existing files"
+            ls -lha
+
+            status "Committing and pushing changes to gh-pages"
+            git add --all
+            git status
             git config user.email "${{secrets.GIT_EMAIL}}"
             git config user.name "${{secrets.GIT_USER}}"
-            git commit -nm "Docs build #${{github.run_number}}"
+            git commit -nm "Docs build #${{github.run_number}}" || status "No changes"
             git push --no-verify origin gh-pages
-            echo "=> Checking out master"
+            status "Checking out master"
             git checkout master
